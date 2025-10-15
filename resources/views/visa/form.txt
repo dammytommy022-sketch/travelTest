@@ -1,0 +1,130 @@
+      {{-- <div class="row1">
+                        <h5>Upload Required Document</h5>
+                        <div class="col-sm-4 mb-2">
+                          <label for="formFile" class="form-label"><b>Passport File</b></label>
+                          <input class="form-control" type="file" name="passport-file" id="formFile" required>
+                        </div>
+                        <div class="col-sm-4 mb-2">
+                          <label for="formFile" class="form-label"><b>Bank Statement</b></label>
+                          <input class="form-control" type="file" name="bank-statement" id="formFile" required>
+                        </div>
+                        <div class="col-sm-4 mb-3">
+                          <label for="formFile" class="form-label"><b>Proof Of Resident</b></label>
+                          <input class="form-control" type="file" name="proof-of-resident" id="formFile"
+                            required>
+                        </div>
+                        <div class="col-sm-4 mb-3" id="NIN" style="display: none">
+                          <label for="formFile" class="form-label"><b>National Identity Number (NIN)</b></label>
+                          <input class="form-control" type="file" name="national-identify-number" id="formFile"
+                            required>
+                        </div>
+                        <div class="col-sm-4 mb-3" id="InvitationLetter" style="display: none">
+                          <label for="formFile" class="form-label"><b>Invitation Letter</b></label>
+                          <input class="form-control" type="file" name="invitation-letter" id="formFile"
+                            required>
+                        </div>
+                        <div class="col-sm-4 mb-3" id="HotelReservation" style="display: none">
+                          <label for="formFile" class="form-label"><b>Hotel Reservation</b></label>
+                          <input class="form-control" type="file" name="hotel-reservation" id="formFile"
+                            required>
+                        </div>
+                        <div class="col-sm-4 mb-3" id="FlightReservation" style="display: none">
+                          <label for="formFile" class="form-label"><b>Flight Reservation</b></label>
+                          <input class="form-control" type="file" name="flight-reservation" id="formFile"
+                            required>
+                        </div>
+                        <div class="col-sm-4 mb-3" id="FlightReservation" style="display: none">
+                          <label for="formFile" class="form-label"><b>Marraige Certificate</b></label>
+                          <input class="form-control" type="file" name="marraige-certificate" id="formFile"
+                            required>
+                        </div>
+                        <div class="col-sm-4 mb-3" id="LetterFromEmployer" style="display: none">
+                          <label for="formFile" class="form-label"><b>Letter from Employer</b></label>
+                          <input class="form-control" type="file" name="letter-from-employer" id="formFile"
+                            required>
+                        </div>
+                        <div class="col-sm-4 mb-3" id="SelfIntroductoryLetter" style="display: none">
+                          <label for="formFile" class="form-label"><b>Self-introductory Letter</b></label>
+                          <input class="form-control" type="file" name="self-introductory-letter" id="formFile"
+                            required>
+                        </div>
+                        <div class="col-sm-4 mb-3" id="ChildBirthCertificate" style="display: none">
+                          <label for="formFile" class="form-label"><b>Children Birth Certicate</b></label>
+                          <input class="form-control" type="file" name="children-birth-certificate"
+                            id="formFile" required>
+                        </div>
+                        <div class="col-sm-4 mb-3" id="ChildLetter" style="display: none">
+                          <label for="formFile" class="form-label"><b>Letter from Child(ren) School</b></label>
+                          <input class="form-control" type="file" name="letter-from-children" id="formFile"
+                            required>
+                        </div>
+                      </div>
+                      <div id="fileContainer" class="col-sm-4 ">
+                        <label for="formFile" class="form-label"><b>Other Documents</b></label>
+                      </div>
+                      <div>
+                        <button id="addButton" class="btn btn-success" onclick="addFileUploader()">Add More
+                          Files</button>
+                      </div> --}}
+
+  <script>
+    var fileCount = 0;
+
+    function addFileUploader() {
+      if (fileCount < 5) {
+        var fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.className = "form-control";
+
+        var lineBreak1 = document.createElement("br");
+
+        if (fileCount > 0) {
+          document.getElementById("fileContainer").appendChild(lineBreak1);
+        }
+
+        document.getElementById("fileContainer").appendChild(fileInput);
+
+        fileCount++;
+
+        // Enable the button if the file count is less than 5
+        if (fileCount < 5) {
+          document.getElementById("addButton").disabled = false;
+        } else {
+          // Disable the button if the file count is 5
+          document.getElementById("addButton").disabled = true;
+        }
+      }
+    }
+  </script>
+
+
+
+  <script>
+    function toggleFileForms() {
+      console.log("toggleFileForms called");
+      var visaTo = document.getElementById('visa_to').value;
+      console.log(visaTo);
+      if (visaTo === 'Canada') {
+        document.getElementById('NIN').style.display = 'block';
+        document.getElementById('InvitationLetter').style.display = 'block';
+        document.getElementById('HotelReservation').style.display = 'block';
+        document.getElementById('FlightReservation').style.display = 'block';
+        document.getElementById('LetterFromEmployer').style.display = 'block';
+        document.getElementById('SelfIntroductoryLetter').style.display = 'block';
+        document.getElementById('ChildBirthCertificate').style.display = 'block';
+        document.getElementById('ChildLetter').style.display = 'block';
+        // Show additional file forms if needed
+      } else {
+        // If visa to other than Canada is selected, hide the file forms
+        document.getElementById('NIN').style.display = 'none';
+        document.getElementById('InvitationLetter').style.display = 'none';
+        document.getElementById('HotelReservation').style.display = 'none';
+        document.getElementById('FlightReservation').style.display = 'none';
+        document.getElementById('LetterFromEmployer').style.display = 'none';
+        document.getElementById('SelfIntroductoryLetter').style.display = 'none';
+        document.getElementById('ChildBirthCertificate').style.display = 'none';
+        document.getElementById('ChildLetter').style.display = 'none';
+        // Hide additional file forms if needed
+      }
+    }
+  </script>

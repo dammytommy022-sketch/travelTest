@@ -1,0 +1,44 @@
+[07-Feb-2025 05:34:06 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php on line 18
+[08-Feb-2025 13:43:30 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php on line 18
+[24-Feb-2025 16:27:14 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/cache.php on line 18
+[08-Aug-2025 05:56:06 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php on line 18
+[08-Aug-2025 05:56:07 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/app.php on line 16
+[08-Aug-2025 09:06:12 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php on line 18
+[08-Aug-2025 09:06:13 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/app.php on line 16
+[09-Aug-2025 00:15:51 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php on line 18
+[09-Aug-2025 00:15:52 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/app.php on line 16
+[09-Aug-2025 02:04:27 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/database.php on line 18
+[09-Aug-2025 02:04:27 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/pyvfgcmy/public_html/test.travelwheel.ng/config/app.php on line 16
