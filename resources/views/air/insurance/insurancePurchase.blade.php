@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Wheel | Travel Insurance</title>
-    <link rel="stylesheet" href="{{asset('public/assets/bootstrap-5.0.2/dist/css/bootstrap.min.css')}}">
-    <script src="{{asset('public/assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js')}}"></script>
-    <link rel="stylesheet" href="{{asset('public/assets/fontawesome-6/dist-font/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('public/assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/bootstrap-5.0.2/dist/css/bootstrap.min.css')}}">
+    <script src="{{asset('assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('assets/fontawesome-6/dist-font/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     
     <style>
         .hidden {
@@ -32,7 +32,7 @@
                     <div class="col-sm-12 p-3 ">
                         <div class="row">
                             <div class="col-6 col-sm-3 col-lg-2">
-                                <img src="{{ asset('public/assets/img/allianz.png') }}" class="image-fluid w-100" alt="protocol"> 
+                                <img src="{{ asset('assets/img/allianz.png') }}" class="image-fluid w-100" alt="protocol"> 
                             </div>
                         </div>
                     </div>
@@ -52,10 +52,10 @@
                             <p><b> The Qoute Price Is:</b> <span style="font-size:20px; font-weight: bolder;"> ₦{{ number_format($dataRequest->amount, 0)}}</span></p>
                             <input type="hidden" id="travelplan" name="travelplan" value="{{ $dataRequest->travelPlanId }}">
                             <div class="hidden" id="benefits1">
-                                <img src="{{ asset('public/assets/image/Benefits2.jpg')}}" class="image-fluid w-100" alt="protocol"> 
+                                <img src="{{ asset('assets/image/Benefits2.jpg')}}" class="image-fluid w-100" alt="protocol"> 
                             </div>
                             <div class="hidden" id="benefits2">
-                                <img src="{{ asset('public/assets/image/Benefits1.jpg')}}" class="image-fluid w-100" alt="protocol"> 
+                                <img src="{{ asset('assets/image/Benefits1.jpg')}}" class="image-fluid w-100" alt="protocol"> 
                             </div>
 
                             <script>

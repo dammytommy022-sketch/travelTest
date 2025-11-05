@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\VisaController;
+use App\Http\Controllers\SupportController;
 
 Route::get('/', function () {return view('index');})->name('index');
 
@@ -132,6 +133,13 @@ Route::get('/rave_p/callback', [App\Http\Controllers\ProtocolController::class, 
 Route::get('/seerbit_p/callback', [App\Http\Controllers\ProtocolController::class, 'callbackSeerbitP'])->name('seerbit.protocol');
 Route::get('/air/protocol_generate1/{trans_id}', [App\Http\Controllers\ProtocolController::class, 'callbackSeerbitP1'])->name('air.protocol_generateS');
 Route::get('/air/protocol_generate2', [App\Http\Controllers\ProtocolController::class, 'callbackFlutterwaveP1'])->name('air.protocol_generateF');
+
+
+//Support Product
+Route::get('/air/support_ticket', [SupportController::class, 'ticketAssit'])->name('air.support_ticket');
+Route::post('/air/support_ticketSave', [SupportController::class, 'ticketSave'])->name('air.support_ticketSave');
+Route::get('/callback/budpay', [SupportController::class, 'budpayCallback'])->name('callback.budpay');
+Route::get('/air/support_success', [SupportController::class, 'supportSuccess'])->name('air.support_success');
 
 //admin
 Route::get('/admin', function () {

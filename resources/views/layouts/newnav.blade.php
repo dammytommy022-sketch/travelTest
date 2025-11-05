@@ -59,7 +59,7 @@
                                     <img src="{{ asset('assets/img/pa.png') }}" class="image-fluid img-W1" alt="">
                                     <div class="nav-text">
                                         <span class=" product-nav main-color"> Flight </span>
-                                        <span class=" product-nav main-color"> Booking </span>
+                                        <span class=" product-nav main-color"> Request </span>
                                     </div>
                                 </div>
                             </a>

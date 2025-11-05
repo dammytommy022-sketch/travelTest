@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Wheel | Travel Insurance</title>
-    <link rel="stylesheet" href="../public/assets/bootstrap-5.0.2/dist/css/bootstrap.min.css">
-    <script src="../public/assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../public/assets/fontawesome-6/dist-font/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../public/assets/css/style.css">  
+    <link rel="stylesheet" href="{{asset('assets/bootstrap-5.0.2/dist/css/bootstrap.min.css')}}">
+    <script src="{{asset('assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('assets/fontawesome-6/dist-font/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">  
     <style>
         .hidden {
         display: none;
@@ -33,7 +33,7 @@
                     <div class="col-sm-12 p-3 ">
                         <div class="row">
                             <div class="col-6 col-sm-3 col-lg-2">
-                                <img src="{{ asset('public/assets/image/leadway.png') }}" class="image-fluid w-100" alt="protocol"> 
+                                <img src="{{asset('assets/image/leadway.png') }}" class="image-fluid w-100" alt="protocol"> 
                             </div>
                             
                         </div>
@@ -92,23 +92,23 @@
                     @endphp
                     @if(in_array($prodName, $group1))
                         <div>
-                            <img src="{{ asset('public/assets/image/LeadwayH&U.jpg')}}" class="image-fluid w-100" alt="protocol"> 
+                            <img src="{{asset('assets/image/LeadwayH&U.jpg')}}" class="image-fluid w-100" alt="protocol"> 
                         </div>
                     @elseif(in_array($prodName, $group2))
                         <div>
-                            <img src="{{ asset('public/assets/image/LeadwayPI.jpg')}}" class="image-fluid w-100" alt="protocol"> 
+                            <img src="{{asset('assets/image/LeadwayPI.jpg')}}" class="image-fluid w-100" alt="protocol"> 
                         </div>
                     @elseif(in_array($prodName, $group3))
                         <div>
-                            <img src="{{ asset('public/assets/image/LeadwayE&S.jpg')}}" class="image-fluid w-100" alt="protocol"> 
+                            <img src="{{asset('assets/image/LeadwayE&S.jpg')}}" class="image-fluid w-100" alt="protocol"> 
                         </div>
                     @elseif(in_array($prodName, $group4))
                         <div>
-                            <img src="{{ asset('public/assets/image/LeadwayA&S.jpg')}}" class="image-fluid w-100" alt="protocol"> 
+                            <img src="{{asset('assets/image/LeadwayA&S.jpg')}}" class="image-fluid w-100" alt="protocol"> 
                         </div>
                     @elseif(in_array($prodName, $group5))
                         <div>
-                            <img src="{{ asset('public/assets/image/LeadwayP&G.jpg')}}" class="image-fluid w-100" alt="protocol"> 
+                            <img src="{{asset('assets/image/LeadwayP&G.jpg')}}" class="image-fluid w-100" alt="protocol"> 
                         </div>
                     @else
                     @endif

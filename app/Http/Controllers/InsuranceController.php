@@ -277,10 +277,8 @@ class InsuranceController extends Controller
                 "paymentReference" => $transaction_ref,
                 "productDescription" => "Travel Insurance",
                 "productId" => $productId,
-                
-             
             ];
-            //dd($payload);
+            dd($payload);
             
             $trans = SeerBit::Standard()->Initialize($payload);
             $pay = $trans['data']['message'];

@@ -11,12 +11,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="icon" type="image/x-icon" href="{{ asset('public/assetsU/assets/img/favicon/twicon.png') }}" />
+     <link rel="icon" type="image/x-icon" href="{{ asset('assetsU/assets/img/favicon/twicon.png') }}" />
     <title>TravelWheel | Travel Insurance</title>
-    <link rel="stylesheet" href="{{ asset('public/assets/bootstrap-5.0.2/dist/css/bootstrap.min.css') }}">
-    <script src="{{ asset('public/assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('public/assets/fontawesome-6/dist-font/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-5.0.2/dist/css/bootstrap.min.css') }}">
+    <script src="{{ asset('assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome-6/dist-font/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <style>
         .hidden {
         display: none;
@@ -63,7 +63,7 @@
                     <div class="col-sm-12 p-3 ">
                         <div class="row">
                             <div class="col-6 col-sm-3 col-lg-2">
-                                <img src="{{ asset('public/assets/image/leadway.png') }}" class="image-fluid w-100" alt="protocol"> 
+                                <img src="{{ asset('assets/image/leadway.png') }}" class="image-fluid w-100" alt="protocol"> 
                             </div>
                             
                         </div>
@@ -81,7 +81,7 @@
                             <div class="row m-2">
                                 @foreach($data['products'] as $product)
                                     <div class="col-lg-2 col-md-3 col-sm-6 shadow sm p-3 selectable" data-link="{{ route('air.insuranceLeadwayP') }}" data-prodname="{{ $product['productName'] }}" data-prodcode="{{ $product['productCode'] }} - {{ $product['productName'] }}" onclick="selectImage(this)">
-                                        <img src="{{ asset('public/assets/image/leadway.png') }}" class="w-100" alt="">
+                                        <img src="{{ asset('assets/image/leadway.png') }}" class="w-100" alt="">
                                         <h7 class="h7">{{ $product['productName'] }}</h7>
                                     </div>
                                 @endforeach
