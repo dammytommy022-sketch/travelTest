@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{{ asset('public/assetsU/assets/img/favicon/twicon.png') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assetsU/assets/img/favicon/twicon.png') }}" />
     <title>Travel Wheel | Air - Airport Protocol </title>
-    <link rel="stylesheet" href="{{ asset('public/assets/bootstrap-5.0.2/dist/css/bootstrap.min.css') }}">
-    <script src="{{ asset('public/assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('public/assets/fontawesome-6/dist-font/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-5.0.2/dist/css/bootstrap.min.css') }}">
+    <script src="{{ asset('assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome-6/dist-font/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     
     <style>
         .hidden {
@@ -34,7 +34,7 @@
                     <div class="col-sm-12 p-3 ">
                     <div class="row">
                          <div class="col-xs-3 col-3 col-sm-2 col-lg-1">
-                            <img src="{{ asset('public/assets/img/pp.png') }}" class="image-fluid w-100" alt="protocol"> 
+                            <img src="{{ asset('assets/img/pp.png') }}" class="image-fluid w-100" alt="protocol"> 
                          </div>
                          <div class="col-xs-12 col-12 col-sm-10 col-lg-7 protocol">
                              <h3>   Airport Protocol and Services  </h3>

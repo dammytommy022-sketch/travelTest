@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{{ asset('public/assetsU/assets/img/favicon/twicon.png') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assetsU/assets/img/favicon/twicon.png') }}" />
     <title>Travel Wheel | Air - Airport Protocol </title>
-    <link rel="stylesheet" href="{{ asset('public/assets/bootstrap-5.0.2/dist/css/bootstrap.min.css') }}">
-    <script src="{{ asset('public/assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('public/assets/fontawesome-6/dist-font/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/assets/css/style.css') }}">  
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-5.0.2/dist/css/bootstrap.min.css') }}">
+    <script src="{{ asset('assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome-6/dist-font/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">  
     
     <style>
         .hidden {
@@ -38,7 +38,7 @@
     <main id="main" style="padding-top: 60px;">
 
         <div class="container-fluid">
-            <img src="{{ asset('public/assets/image/Protocol.jpg') }}" class="image-fluid w-100" alt="">
+            <img src="{{ asset('assets/image/Protocol.jpg') }}" class="image-fluid w-100" alt="">
         </div>
 
         <section class="shadow-sm">
@@ -47,7 +47,7 @@
                     <div class="col-sm-12 p-3 ">
                         <div class="row">
                             <div class="col-xs-3 col-3 col-sm-2 col-lg-1">
-                                <img src="{{ asset('public/assets/img/pp.png') }}" class="image-fluid w-100" alt="protocol"> 
+                                <img src="{{ asset('assets/img/pp.png') }}" class="image-fluid w-100" alt="protocol"> 
                             </div>
 
                             <div class="col-xs-12 col-12 col-sm-10 col-lg-8 protocol">
@@ -78,100 +78,113 @@
                                         {{ session('error') }}
                                     </div>
                                 @endif
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="mb-3 " >
-                                            <label class="form-label" for="firstname">Location</label>
-                                            <select class="form-select" id='stateselect' name="state" aria-label="Default select example" required>
-                                                <option value="">-- Select Location --</option>
-                                                    <option value="Abuja">FCT -Abuja </option>
-                                                    <!-- <option value="2">Kano -Kano </option> -->
-                                                    <option value="Lagos">Lagos -Ikeja</option>
-                                                    <!-- <option value="4">Cross-river -Portharcourt</option> -->
-                                            </select>
-                                        </div>
-                                        <div class="hidden" id="airport1">
-                                            <form action="{{ route('air.protocolplan')}}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="location" value="Abuja">
-                                                <div class="mb-3 " >
-                                                    <label class="form-label" for="firstname">Airport </label>
-                                                    <select class="form-select" id='airportSelect' name="airport" aria-label="Default select example" required>
-                                                        <option value="">-- Choose Airport --</option>
-                                                        <option value="International Airport">International Airport </option>
-                                                        <option value="Local Airport">Local Airport </option> 
-                                                    </select>
-                                                    @error('airport')
-                                                        <small class="text-danger ">{{ $message }}</small>
-                                                    @enderror
-                                                    
-                                                    <label class="form-label" for="service1">I need Protocol Service for my:</label>
-                                                    <select class="form-select" id='service1' name="service" aria-label="Default select example" required>
-                                                        <option value="">-- Segment --</option>
-                                                        <option value="Departure">Departure </option>
-                                                        <option value="Arrival">Arrival</option>
-                                                    </select>
-                                                    @error('service')
-                                                        <small class="text-danger ">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-sm-12 text-center">
-                                                    <button type="submit" id="purchaseButton" class="btn btn-pry">Book Protocol</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="hidden" id="airport2">
-                                            <form action="{{ route('air.protocolplan')}}" method="POST">
-                                                 @csrf
-                                                <input type="hidden" name="location" value="Lagos">
-                                                <div class="mb-3 " id="airport2">
-                                                    <label class="form-label" for="airport">Airport</label>
-                                                    <select class="form-select" id='airportSelect' name="airport" aria-label="Default select example" required>
-                                                        <option value="">-- Choose Airport --</option>
-                                                        <option value="International Airport">International Airport </option>
-                                                        <option value="Local Airport">Local Airport </option>
-                                                    </select>
-                                                    @error('airport')
-                                                        <small class="text-danger ">{{ $message }}</small>
-                                                    @enderror
-                                                    <label class="form-label" for="service2">I need Protocol Service for my: </label>
-                                                    <select class="form-select" id='service2' name="service" aria-label="Default select example" required>
-                                                        <option value="">-- Segment --</option>
-                                                        <option value="Departure">Departure </option>
-                                                        <option value="Arrival">Arrival</option>
-                                                    </select>
-                                                    @error('service')
-                                                        <small class="text-danger ">{{ $message }}</small>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-sm-12 text-center">
-                                                    <button type="submit" id="purchaseButton" class="btn btn-pry">Book Protocol</button>
-                                                </div>
-                                            </form>
-                                        </div>      
-                                    </div>
-                                    <script>
-                                        var stateselect = document.getElementById("stateselect");
-                                        var airport1 = document.getElementById("airport1");
-                                        var airport2 = document.getElementById("airport2");
-                                        // var airport3 = document.getElementById("airport3");
-                                        // var airport4 = document.getElementById("airport4");
 
-                                        stateselect.addEventListener("change", function() {
-                                            if (stateselect.value === "Abuja") {
-                                                airport1.style.display = "block";
-                                                airport2.style.display = "none";
-                                            }
-                                            else if (stateselect.value === "Lagos") {
-                                                airport1.style.display = "none";
-                                                airport2.style.display = "block";
-                                            }
-                                            
-                                            
-                                        })
-                                    </script>
-                                </div>
+                                <form action="{{ route('air.protocolplan')}}" method="POST" id="protocolForm">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <!-- Location -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Location</label>
+                                                <select class="form-select" id="stateselect" name="state" required>
+                                                    <option value="">-- Select Location --</option>
+                                                    <!-- Both Intl + Local -->
+                                                    <option value="Abuja">FCT - Abuja</option>
+                                                    <option value="Lagos">Lagos - Ikeja</option>
+                                                    <option value="Kano">Kano - Kano</option>
+                                                    <option value="Rivers">Rivers - Port Harcourt</option>
+                                                    <option value="Enugu">Enugu - Enugu</option>
+                                                    <!-- Local Only -->
+                                                    <option value="Delta Asaba">Delta - Asaba</option>
+                                                    <option value="Imo">Imo - Owerri</option>
+                                                    <option value="Oyo">Oyo - Ibadan</option>
+                                                    <option value="Kwara">Kwara - Ilorin</option>
+                                                    <option value="Anambra">Anambra - Anambra</option>
+                                                    <option value="Delta Warri">Delta - Warri</option>
+                                                    <option value="Edo">Edo - Benin City</option>
+                                                    <option value="Gombe">Gombe - Gombe</option>
+                                                    <option value="Borno">Borno - Maiduguri</option>
+                                                    <option value="Adamawa">Adamawa - Yola</option>
+                                                    <option value="Sokoto">Sokoto - Sokoto</option>
+                                                    <option value="Kaduna">Kaduna - Kaduna</option>
+                                                    <option value="Cross River">Cross River - Calabar</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Airport -->
+                                            <div class="mb-3 hidden" id="airportSection">
+                                                <input type="hidden" name="location" id="locationInput">
+
+                                                <label class="form-label">Airport</label>
+                                                <select class="form-select" name="airport" id="airportSelect" required></select>
+
+                                                <!-- Service Type -->
+                                                <label class="form-label mt-3">I need Protocol Service for my:</label>
+                                                <select class="form-select" name="service" required>
+                                                    <option value="">-- Segment --</option>
+                                                    <option value="Departure">Departure</option>
+                                                    <option value="Arrival">Arrival</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-sm-12 text-center mt-3 hidden" id="submitSection">
+                                                <button type="submit" class="btn btn-pry">Book Protocol</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <script>
+                                    const stateselect = document.getElementById("stateselect");
+                                    const airportSection = document.getElementById("airportSection");
+                                    const submitSection = document.getElementById("submitSection");
+                                    const airportSelect = document.getElementById("airportSelect");
+                                    const locationInput = document.getElementById("locationInput");
+
+                                    // Locations that have only Local Airport
+                                    const localOnly = [
+                                        "Delta Asaba", "Imo", "Oyo", "Kwara",
+                                        "Anambra", "Delta Warri", "Edo", "Gombe", "Borno", "Adamawa",
+                                        "Sokoto", "Kaduna", "Cross River"
+                                    ];
+
+                                    stateselect.addEventListener("change", function() {
+                                        const selected = stateselect.value;
+                                        locationInput.value = selected;
+
+                                        if (selected === "") {
+                                            airportSection.classList.add("hidden");
+                                            submitSection.classList.add("hidden");
+                                            airportSelect.innerHTML = "";
+                                            return;
+                                        }
+
+                                        airportSection.classList.remove("hidden");
+                                        submitSection.classList.remove("hidden");
+
+                                        // Clear old options
+                                        airportSelect.innerHTML = "";
+
+                                        if (localOnly.includes(selected)) {
+                                            // Local only location
+                                            airportSelect.innerHTML = `
+                                                <option value="Local Airport" selected>Local Airport</option>
+                                            `;
+                                            airportSelect.setAttribute("readonly", true);
+                                        } else {
+                                            // Both available
+                                            airportSelect.innerHTML = `
+                                                <option value="">-- Choose Airport --</option>
+                                                <option value="International Airport">International Airport</option>
+                                                <option value="Local Airport">Local Airport</option>
+                                            `;
+                                            airportSelect.removeAttribute("readonly");
+                                        }
+                                    });
+                                </script>
                             </div>
+
+
                         </div>
                     </div>
                     <div class="col-md-6 pb-3">

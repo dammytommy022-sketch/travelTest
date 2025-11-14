@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{{ asset('public/assetsU/assets/img/favicon/twicon.png') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assetsU/assets/img/favicon/twicon.png') }}" />
     <title>Travel Wheel | Air - Airport Protocol </title>
-    <link rel="stylesheet" href="{{ asset('public/assets/bootstrap-5.0.2/dist/css/bootstrap.min.css') }}">
-    <script src="{{ asset('public/assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('public/assets/fontawesome-6/dist-font/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-5.0.2/dist/css/bootstrap.min.css') }}">
+    <script src="{{ asset('assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome-6/dist-font/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     
     
     <style>
@@ -60,7 +60,7 @@
             <div class="container">
                 <div class="row p-2 pt-5 ">
                     <div class="col-sm-6 p-3 ">
-                        <h3> <img src="{{ asset('public/assets/img/pp.png') }}" class="image-fluid wd-25" alt="protocol"> Airport Protocol Service </h3>
+                        <h3> <img src="{{ asset('assets/img/pp.png') }}" class="image-fluid wd-25" alt="protocol"> Airport Protocol Service </h3>
                     </div>
                 </div> 
                 <div class="row airport-form shadow p-4 mb-5">
@@ -132,52 +132,82 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="col-sm-6 " id="airline1" >
+                                        <div class="col-sm-6" id="airline1">
                                             <div class="mb-3"> 
-                                                <label class="form-label" for="firstname">Select Airline</label>
+                                                <label class="form-label">Select Airline</label>
                                                 <div class="input-group input-group-merge">
-                                                
-                                                    <select class="form-select" id="airlineselect1" name="airline" aria-label="Default select example" required>
+                                                    <select class="form-select" id="airlineselect1" name="airline" required>
                                                         <option value="">-- Choose Airline --</option>
-                                                        <option value="AIR COTE D'IVOIRE">AIR COTE D'IVOIRE</option>
-                                                        <option value="ARIK AIR">ARIK AIR</option>
-                                                        <option value="ASKY AIRLINES">ASKY AIRLINES</option>
-                                                        <option value="AIR FRANCE5">AIR FRANCE5</option>
-                                                        <option value="AIR NAMIBIA">AIR NAMIBIA</option>
-                                                        <option value="BRITISH AIRWAYS">BRITISH AIRWAYS</option>
-                                                        <option value="DELTA AIRLINES">DELTA AIRLINES</option>
-                                                        <option value="Egypt Airline">Egypt Airline</option>
-                                                        <option value="Emirates Airlines">Emirates Airlines</option>
-                                                        <option value="ETHIOPIAN AIRLINES">ETHIOPIAN AIRLINES</option>
-                                                        <option value="ETIHAD AIRWAYS">ETIHAD AIRWAYS</option>
-                                                        <option value="KENYA AIRWAYS">KENYA AIRWAYS</option>
-                                                        <option value="KLM">KLM</option>
-                                                        <option value="LUFTHANSA">LUFTHANSA</option>
-                                                        <option value="QATAR AIRWAYS">QATAR AIRWAYS</option>
-                                                        <option value="ROYAL AIR MAROC">ROYAL AIR MAROC</option>
-                                                        <option value="RWANDA AIR">RWANDA AIR</option>
-                                                        <option value="SOUTH AFRICAN AIRWAYS">SOUTH AFRICAN AIRWAYS</option>
-                                                        <option value="TURKISH AIRLINE">TURKISH AIRLINE</option>
-                                                        <option value="VIRGIN ATLANTIC">VIRGIN ATLANTIC</option>
-                                                        <option value="TAP PORTUGAL">TAP PORTUGAL</option>
-                                                        <option value="AFRICAN WORLD AIRLINES">AFRICAN WORLD AIRLINES</option>
-                                                        <option value="MID AFRICA AIRLINES">MID AFRICA AIRLINES</option>
-                                                        <option value="SAUDI ARABIAN AIRLINE">SAUDI ARABIAN AIRLINE</option>
-                                                        <option value="AIRPEACE">AIRPEACE     </option>   
-                                                        <option value="OTHERS">OTHERS</option>                                   
                                                     </select>
-            
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 hidden" id="other1" >
+
+                                        <div class="col-sm-6 hidden" id="other1">
                                             <div class="mb-3">
-                                                <label class="form-label" for="firstname">Other Airline</label>
-                                                <div class="input-group input-group-merge">
-                                                <input type="text" class="form-control" name="other" value="">
-                                                </div>
+                                                <label class="form-label">Other Airline</label>
+                                                <input type="text" class="form-control" name="other" placeholder="Enter Airline Name">
                                             </div>
                                         </div>
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function () {
+                                                const location = @json($data['location']);
+                                                const airport = @json($data['airport']);
+                                                const select = document.getElementById("airlineselect1");
+                                                const otherField = document.getElementById("other1");
+
+                                                // ✈️ Airline mapping per international airport
+                                                const airlineMap = {
+                                                    "Lagos": [
+                                                        "BRITISH AIRWAYS", "QATAR AIRWAYS", "EMIRATES", "LUFTHANSA",
+                                                        "TURKISH AIRLINES", "DELTA AIRLINES", "VIRGIN ATLANTIC",
+                                                        "ETHIOPIAN AIRLINES", "KENYA AIRWAYS", "AIR PEACE", "ASKY AIRLINES",
+                                                        "AIR FRANCE", "KLM", "EGYPT AIR", "ROYAL AIR MAROC", "QATAR AIRWAYS",
+                                                        "TAAG ANGOLA", "SOUTH AFRICA AIRWAYS", "UNITED AIRLINES", "RWANDAIR"
+                                                    ],
+                                                    "Abuja": [
+                                                        "BRITISH AIRWAYS", "LUFTHANSA", "ETHIOPIAN AIRLINES", "KLM",
+                                                        "EMIRATES", "QATAR AIRWAYS", "TURKISH AIRLINES", "AIR FRANCE",
+                                                         "AIR PEACE", "ASKY AIRLINES", "ROYAL AIR MAROC",
+                                                        "UNITED AIRLINES", "VIRGIN ATLANTIC", "DELTA AIRLINES"
+                                                    ],
+                                                    "Kano": [
+                                                        "ETHIOPIAN AIRLINES"
+                                                    ],
+                                                    "Enugu": [
+                                                        "ETHIOPIAN AIRLINES"
+                                                    ],
+                                                    "Rivers": [
+                                                        "QATAR AIRWAYS", "TURKISH AIRLINES", "LUFTHANSA",
+                                                    ]
+                                                };
+
+                                                const airlines = airlineMap[location] || [];
+
+                                                // Populate dropdown
+                                                airlines.forEach(airline => {
+                                                    const option = document.createElement("option");
+                                                    option.value = airline;
+                                                    option.textContent = airline;
+                                                    select.appendChild(option);
+                                                });
+
+                                                // Add "OTHERS" option at the end
+                                                const othersOption = document.createElement("option");
+                                                othersOption.value = "OTHERS";
+                                                othersOption.textContent = "OTHERS";
+                                                select.appendChild(othersOption);
+
+                                                // Show text field if "OTHERS" selected
+                                                select.addEventListener("change", function() {
+                                                    if (this.value === "OTHERS") {
+                                                        otherField.classList.remove("hidden");
+                                                    } else {
+                                                        otherField.classList.add("hidden");
+                                                    }
+                                                });
+                                            });
+                                            </script>
                                         
                                         <div class="col-sm-6">
                                             <div class="mb-3">
@@ -475,7 +505,7 @@
                                                                     <small>Up to 3 <i class="fa fa-users"></i>Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/saloon.jpg') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/saloon.jpg') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -486,7 +516,7 @@
                                                                     <small>Up to 3 <i class="fa fa-users"></i> Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/suv.jpg') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/suv.jpg') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -497,7 +527,7 @@
                                                                     <small>Up to 5 <i class="fa fa-users"></i>Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/minivan.png') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/minivan.png') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -544,7 +574,7 @@
                                                                     <small>Up to 3 <i class="fa fa-users"></i>Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/saloon.jpg') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/saloon.jpg') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -555,7 +585,7 @@
                                                                     <small>Up to 3 <i class="fa fa-users"></i> Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/suv.jpg') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/suv.jpg') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -566,7 +596,7 @@
                                                                     <small>Up to 5 <i class="fa fa-users"></i>Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/minivan.png') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/minivan.png') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -675,7 +705,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label" for="firstname">Location</label>
                                                 <input type="text" name="" class="form-control" value="{{$data['location']}}" readonly/>
-                                                <input type="hidden" name="location" class="form-control" value="{{$data['location']}}" />
+                                                <input type="hidden" name="location" id="location"    class="form-control" value="{{$data['location']}}" />
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -703,22 +733,7 @@
                                                 <label class="form-label" for="firstname">Select Airline</label>
                                                 <div class="input-group input-group-merge">
                                                     <select class="form-select" id="airlineselect2"  name="airline" aria-label="Default select example" required>
-                                                        <option value="">-- Choose Airline --</option>
-                                                        <option value="AIR PEACE">AIR PEACE</option>
-                                                        <option value="DANA AIR">DANA AIR</option>
-                                                        <option value="MAX AIR">MAX AIR</option>
-                                                        <option value="OVERLAND AIRWAYS">OVERLAND AIRWAYS</option>
-                                                        <option value="AERO">AERO</option>
-                                                        <option value="IBOM AIR">IBOM AIR</option>
-                                                        <option value="UNITED NIGERIA">UNITED NIGERIA</option>
-                                                        <option value="AZMAN">AZMAN</option>
-                                                        <option value="ARIK">ARIK</option>
-                                                        <option value="GREEN AFRICA">GREEN AFRICA</option>
-                                                        <option value="VALUE JET">VALUE JET</option>
-                                                        <option value="FIRST NATION AIRLINE">FIRST NATION AIRLINE</option>
-                                                        <option value="IRS AIRLINE">IRS AIRLINE</option>
-                                                        <option value="KABO AIR">KABO AIR</option>
-                                                        <option value="OTHERS">OTHERS</option>                       
+                                                                              
                                                     </select>
                                                 </div>
                                             </div>
@@ -731,6 +746,72 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function () {
+                                                const location = document.getElementById("location").value.trim();  
+                                                const airlineSelect = document.getElementById("airlineselect2");
+                                                const otherDiv = document.getElementById("other2");
+
+                                                console.log("Location value detected:", location); // Debug line
+
+                                                // Define airlines for each location (local airports)
+                                                const localAirlinesByLocation = {
+                                                    "Lagos": ["Air Peace", "Arik", "Ibom Air", "Value Jet", "Overland Airways", "United Nigeria Airlines", "MAx Air", "XEjet", "Aero Contractor", "Green Africa", "Rano Air", "Umza Air"],
+                                                    "Abuja": ["Air Peace", "Arik", "Ibom Air", "Value Jet", "Overland Airways", "United Nigeria Airlines", "MAx Air", "XEjet", "Aero Contractor", "Green Africa", "Rano Air", "Umza Air"],
+                                                    "Enugu": ["Ibom Air", "United Nigeria Airlines", "XEjet"],
+                                                    "Rivers": ["Air Peace", "Arik", "Aero Contractor", "Ibom Air", "United Nigeria Airlines", "Value Jet", "Umza Air"],
+                                                    "Kano ": ["Air Peace", "Rano Air", "Value Jet", "Umza Air"],
+                                                    "Delta Asaba": ["Air Peace", "Arik", "Aero Contractor", "United Nigeria Airlines"],
+                                                    "Imo": ["Air Peace", "United Nigeria Airlines", "XEjet"],
+                                                    "Oyo": ["Overland Airways"],
+                                                    "Kwara": ["Overland Airways"],
+                                                    "Anambra": ["Air Peace", "United Nigeria Airlines"],
+                                                    "Delta Warri": ["Air Peace", "Arik", "Aero Contractor"],
+                                                    "Edo": ["Air Peace", "Arik", "Aero Contractor", "United Nigeria Airlines"],
+                                                    "Gombe": ["Air Peace"],
+                                                    "Borno": ["Air Peace", "Umza Air", "Rano Air"],
+                                                    "Adamawa": ["Air Peace", "Umza Air"],
+                                                    "Sokoto": ["Umza Air", "Rano Air"],
+                                                    "Kaduna": ["Rano Air"],
+                                                    "Cross River": ["Ibom Air", "Value Jet"]
+                                                };
+
+                                                // Normalize & find match
+                                                const locationKey = Object.keys(localAirlinesByLocation).find(
+                                                    key => key.toLowerCase() === location.toLowerCase()
+                                                );
+
+                                                // Reset dropdown
+                                                airlineSelect.innerHTML = '<option value="">-- Choose Airline --</option>';
+
+                                                // Populate airline options if found
+                                                if (locationKey) {
+                                                    localAirlinesByLocation[locationKey].forEach(function (airline) {
+                                                        const option = document.createElement("option");
+                                                        option.value = airline.toUpperCase();
+                                                        option.text = airline;
+                                                        airlineSelect.appendChild(option);
+                                                    });
+                                                }
+
+                                                // Always add "OTHERS"
+                                                const otherOption = document.createElement("option");
+                                                otherOption.value = "OTHERS";
+                                                otherOption.text = "OTHERS";
+                                                airlineSelect.appendChild(otherOption);
+
+                                                // Show/hide "Other Airline" input based on selection
+                                                airlineSelect.addEventListener("change", function () {
+                                                    if (this.value === "OTHERS") {
+                                                        otherDiv.classList.remove("hidden");
+                                                    } else {
+                                                        otherDiv.classList.add("hidden");
+                                                    }
+                                                });
+                                            });
+                                        </script>
+
+
                                         <div class="col-sm-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="nop">No. Of Person(s)</label>
@@ -1030,7 +1111,7 @@
                                                                     <small>Up to 3 <i class="fa fa-users"></i>Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/saloon.jpg') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/saloon.jpg') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1041,7 +1122,7 @@
                                                                     <small>Up to 3 <i class="fa fa-users"></i> Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/suv.jpg') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/suv.jpg') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1052,7 +1133,7 @@
                                                                     <small>Up to 5 <i class="fa fa-users"></i>Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/minivan.png') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/minivan.png') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1124,7 +1205,7 @@
                                                                     <small>Up to 3 <i class="fa fa-users"></i>Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/saloon.jpg') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/saloon.jpg') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1135,7 +1216,7 @@
                                                                     <small>Up to 3 <i class="fa fa-users"></i> Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/suv.jpg') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/suv.jpg') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1146,7 +1227,7 @@
                                                                     <small>Up to 5 <i class="fa fa-users"></i>Seaters </small>
                                                                 </div>
                                                                 <div class="col-5 text-end">
-                                                                    <img src="{{ asset('public/assets/image/minivan.png') }}" class="image-fluid w-100" alt="Saloon">
+                                                                    <img src="{{ asset('assets/image/minivan.png') }}" class="image-fluid w-100" alt="Saloon">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1198,6 +1279,7 @@
                                                 optionalDivA2.innerHTML = vehicleDetailsA2; // Copy innerHTML of selected element and add input
                                             }
                                         </script>
+                                        
                                         <div class="col-sm-6">
                                             <div class="mb-3">
                                             <input class="form-check-input" type="checkbox" name="terms" value="" id="defaultCheck1" required/>

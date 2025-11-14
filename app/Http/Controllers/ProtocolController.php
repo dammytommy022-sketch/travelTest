@@ -54,6 +54,7 @@ class ProtocolController extends Controller
         if($data['airport'] == "Local Airport"){
             $airport = "Local";
             $protocol = ProtocolModel::where('location', $location)->where('airport', $airport)->where('service', $service)->latest()->first();
+            //dd($protocol);
             $id = $protocol->id;
             //$price1 = $price['price1'];
             //dd($id);

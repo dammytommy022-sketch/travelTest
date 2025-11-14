@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{{ asset('public/assetsU/assets/img/favicon/twicon.png') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assetsU/assets/img/favicon/twicon.png') }}" />
     <title>TravelWheel | Air - Airport Protocol </title>
-    <link rel="stylesheet" href="{{ asset('public/assets/bootstrap-5.0.2/dist/css/bootstrap.min.css') }}">
-    <script src="{{ asset('public/assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('public/assets/fontawesome-6/dist-font/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-5.0.2/dist/css/bootstrap.min.css') }}">
+    <script src="{{ asset('assets/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome-6/dist-font/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <style>
         .input-control {
     display: block;
@@ -78,7 +78,7 @@
             <div class="container">
                 <div class="row p-2 pt-5 ">
                     <div class="col-sm-8 p-3 ">
-                        <h3> <img src="{{ asset('public/assets/img/pp.png') }}" class="image-fluid wd-25" alt="protocol"> Airport Protocol Service </h3>
+                        <h3> <img src="{{ asset('assets/img/pp.png') }}" class="image-fluid wd-25" alt="protocol"> Airport Protocol Service </h3>
                         
                     </div>
                 </div>
@@ -570,13 +570,13 @@
         <!-- Loading screen content (e.g., logo, loading message) -->
         <!-- Loading screen content (e.g., logo, loading message) -->
          <video width="640" height="480" autoplay muted loop>
-            <source src="{{ asset('public/assets/dist/loading.mp4') }}" type="video/mp4">
+            <source src="{{ asset('assets/dist/loading.mp4') }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <p>Loading... Please wait.</p>
     </div>
 
-    <script src="{{ asset('public/assets/dist/please-wait.min.js') }}"></script>
+    <script src="{{ asset('assets/dist/please-wait.min.js') }}"></script>
 
     <script type="text/javascript">
         // Function to show the loading screen
