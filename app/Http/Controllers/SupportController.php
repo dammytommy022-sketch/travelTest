@@ -3,23 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SupportRequest;
+use App\Models\SupportRequest;             
+use App\Models\ExtraLuggage;               
+use App\Models\VisaConfirmation;      
+use App\Models\YellowCard;                
+
 use Illuminate\Support\Facades\Mail;
-use App\Mail\SupportPaymentSuccessMail;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use SeerbitLaravel\Facades\Seerbit;
 use Illuminate\Support\Facades\Redirect;
 
-
 class SupportController extends Controller
 {
-    public function ticketAssit()
+    public function index()
     {
-        return view('air.support.ticketAssist');
+        return view('air.support.index');
     }
 
-    public function ticketSave(Request $request){
+    public function ticketAssit()
+    {
+        return view('air.support.index');
+    }
+
+    //FLIGHT ASSIST
+    public function ticketSave(Request $request)
+    {
         $data = $request->validate([
             'request_type' => 'required|in:date_change,rerouting',
             'booking_source' => 'required|in:airline,agent',
@@ -36,281 +45,664 @@ class SupportController extends Controller
             'preferred_time' => 'nullable|string|max:255',
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
+            'payment_option' => 'required|in:budpay,seerbit',
+            'amount' => 'required|integer|in:25000',
             'additional_info' => 'nullable|string',
         ]);
 
         $uuid = bin2hex(random_bytes(6));
         $transaction_ref = strtoupper(trim($uuid));
         $productId = "SPA".$uuid;
-        $amount = "25000";
-        $payment_option = 'budpay';
-        //dd($data);
 
-        // Save to database
+        // Save
         $supportRequest = SupportRequest::create(array_merge($data, [
             'payment_reference' => $transaction_ref,
             'payment_status' => 'pending',
-            'payment_option' => $payment_option,
-            'amount' => $amount,
+            'payment_option' => $data['payment_option'],
+            'amount' => $data['amount'],
         ]));
 
-        //dd('data save in db');
-        if('seerbit' == $payment_option) {
-            try {
-                $payload = [
-                    "amount" => $amount,
-                    "callbackUrl" => route('callback.seerbit'),
-                    "country" => "NG",
-                    "currency" => "NGN",
-                    "email" => $data['email'],
-                    'client_name' => $data['name_on_ticket'],
-                    "paymentReference" => $transaction_ref,
-                    "productDescription" => "Suppot Assitance",
-                    "productId" => $productId,
-                ];
-                //dd($payload);
-                
-                $trans = SeerBit::Standard()->Initialize($payload);
-                $pay = $trans['data']['message'];
-                //dd($pay);
-                $redirectLink = $trans['data']['payments']['redirectLink'];
-                return redirect($redirectLink);
-                //$redirectLink = $trans['data']['payments']['redirectLink'];
+        // continue with your payment logic...
+        return $this->launchPayment(
+            payment_option: $data['payment_option'],
+            amount: $data['amount'],
+            email: $data['email'],
+            phone: $data['phone'],
+            customerName: $data['name_on_ticket'] ?? 'Customer',
+            reference: $transaction_ref,
+            product_title: "Flight Assist"
+        );
+    }
 
-                // Redirect the user to the payment redirect link
-            } catch (\Exception $e) {
-                dd($e->getMessage());
-                return Redirect::back()->withMessage(['msg'=>'The payment gateway token has expired. Please refresh the page and try again.', 'type'=>'error']);
-                
-            }
+
+     //EXTRA LUGGAGE SUBMISSION
+    public function submitExtraLuggage(Request $request)
+    {
+        $data = $request->validate([
+            'full_name'     => 'required|string|max:255',
+            'airline_category' => 'required',
+            'data_page'       => 'required|file|mimes:pdf,jpg,png',
+            'contact_number'  => 'required|string|max:20',
+            'airline'         => 'required|string',
+            'ticket'          => 'required|file|mimes:pdf,jpg,png',
+            'email'           => 'required|email|max:255',
+            'payment_option' => 'required|in:budpay,seerbit',
+            'amount' => 'required|integer|in:25000',
+        ]);
+
+        // Upload files
+        $dataPage = $request->file('data_page')->store('extra_luggage', 'public');
+        $ticket   = $request->file('ticket')->store('extra_luggage_tickets', 'public');
+
+        $uuid = bin2hex(random_bytes(6));
+        $transaction_ref = strtoupper($uuid);
+
+        // Save into DB
+        $record = ExtraLuggage::create([
+            'full_name'        => $data['full_name'],
+            'airline_category' => $data['airline_category'],
+            'data_page'        => $dataPage,
+            'ticket'           => $ticket,
+            'contact_number'   => $data['contact_number'],
+            'email'            => $data['email'],
+            'airline'          => $data['airline'],
+            'payment_reference'=> $transaction_ref,
+            'payment_option' => $data['payment_option'],
+            'payment_status'   => 'pending',
+            'amount'           => $data['amount'],
+        ]);
+
+        return $this->launchPayment(
+            payment_option: $data['payment_option'],
+            amount: $data['amount'],
+            email: $data['email'],
+            phone: $data['contact_number'],
+            customerName: $data['full_name'],
+            reference: $transaction_ref,
+            product_title: "Extra Luggage"
+        );
+    }
+
+
+    
+      //VISA CONFIRMATION
+    public function submitVisa(Request $request)
+    {
+        $data = $request->validate([
+            'full_name'     => 'required|string|max:255',
+            'email'         => 'required|email|max:255',
+            'phone_number'  => 'required|string|max:20',
+            'visa_file'     => 'required|file|mimes:pdf,jpg,png',
+            'payment_option' => 'required|in:budpay,seerbit',
+            'amount' => 'required|integer|in:50000',
+            'additional_info'=>'nullable|string'
+        ]);
+
+        $visaFile = $request->file('visa_file')->store('visa', 'public');
+
+        $uuid = bin2hex(random_bytes(6));
+        $reference = strtoupper($uuid);
+
+        VisaConfirmation::create([
+            'full_name'        => $data['full_name'],
+            'email'            => $data['email'],
+            'phone_number'     => $data['phone_number'],
+            'visa_file'        => $visaFile,
+            'payment_reference'=> $reference,
+            'payment_option' => $data['payment_option'],
+            'payment_status'   => 'pending',
+            'amount'           => $data['amount'],
+        ]);
+
+        return $this->launchPayment(
+            payment_option: $data['payment_option'],
+            amount: $data['amount'],
+            email: $data['email'],
+            phone: $data['phone_number'],
+            customerName: $data['full_name'],
+            reference: $reference,
+            product_title: "Visa Confirmation",
+        );
+    }
+
+
+    // ✅ YELLOW CARD
+     
+    public function submitYellowCard(Request $request)
+    {
+        $data = $request->validate([
+            'service_type'     => 'required',
+            'full_name'        => 'required|string|max:255',
+            'data_page'        => 'required|file|mimes:pdf,jpg,png',
+            'email'            => 'required|email|max:255',
+            'home_address'     => 'required|string',
+            'payment_option' => 'required|in:budpay,seerbit',
+            'phone_number'     => 'required',
+            'delivery_address' => 'required|string'
+        ]);
+
+        $filePath = $request->file('data_page')->store('yellow_card', 'public');
+
+        $uuid = bin2hex(random_bytes(6));
+        $reference = strtoupper($uuid);
+
+        $amount = ($data['service_type'] === 'fasttrack') ? 50000 : 30000;
+        YellowCard::create([
+            'service_type'      => $data['service_type'],
+            'full_name'         => $data['full_name'],
+            'email'             => $data['email'],
+            'data_page'         => $filePath,
+            'home_address'      => $data['home_address'],
+            'phone_number'      => $data['phone_number'],
+            'delivery_address'  => $data['delivery_address'],
+            'payment_reference' => $reference,
+            'payment_option' => $data['payment_option'],
+            'payment_status'    => 'pending',
+            'amount'            => $amount,
+        ]);
+
+        return $this->launchPayment(
+            payment_option: $data['payment_option'],
+            amount: $amount,
+            email: $data['email'],
+            phone: $data['phone_number'],
+            customerName: $data['full_name'],
+            reference: $reference,
+            product_title: "Yellow Card"
+        );
+    }
+
+
+    private function launchPayment($payment_option, $amount, $email, $phone, $customerName, $reference, $product_title)
+    {
+        $publicKey  = env('BUDPAY_PUBLIC_KEY');
+        $firstName  = explode(' ', $customerName)[0];
+        $lastName   = explode(' ', $customerName)[1] ?? '';
+        $callbackUrl = route('seerbit.support');
+
+        if ($payment_option === 'seerbit') {
+            return $this->launchSeerbitPayment(
+                amount: $amount,
+                email: $email,
+                phone: $phone,
+                customerName: $customerName,
+                reference: $reference,
+                product_title: $product_title
+            );
         }
-        // === BUDPAY PAYMENT ===
-        elseif ('budpay' == $payment_option) {
-            try {
-                // Generate a unique transaction reference and prepare inline page
-                $publicKey = env('BUDPAY_PUBLIC_KEY', 'pk_test_xolsnu5dpqpia2a7a8iftygugzyluz2qffkhlid');
-                $email = $data['email'];
-                $amountValue = $amount;
-                $firstName = explode(' ', $data['name_on_ticket'] ?? 'Customer')[0];
-                $lastName = explode(' ', $data['name_on_ticket'] ?? 'Customer')[1] ?? '';
-                $ref = $transaction_ref;
-                $callbackUrl = route('callback.budpay');
+        if ($payment_option == 'budpay') {
+            
+            $callbackUrl = route('callback.budpay');
 
-                // Return inline payment HTML that automatically launches BudPay popup
-                return response()->make("
-                    <!DOCTYPE html>
-                    <html lang='en'>
-                    <head>
-                        <meta charset='UTF-8'>
-                        <title>Redirecting to BudPay</title>
-                        <meta name='viewport' content='width=device-width, initial-scale=1'>
-                        <script src='https://inlinepay.budpay.com/budpay-inline-custom.js'></script>
-                        <style>
-                            body {
-                                font-family: 'Segoe UI', Arial, sans-serif;
-                                background: #f8fafc;
-                                margin: 0;
-                                padding: 0;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                height: 100vh;
-                            }
-                            .payment-card {
-                                background: #fff;
-                                border-radius: 16px;
-                                box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-                                padding: 40px 30px;
-                                max-width: 420px;
-                                width: 100%;
-                                text-align: center;
-                                animation: fadeIn 0.7s ease-in-out;
-                                position: relative;
-                            }
-                            .logo-bar {
-                                align-items: center;
-                                margin-bottom: 25px;
-                            }
-                            .logo-bar img {
-                                height: 25px;
-                                transition: transform 0.4s ease;
-                            }
-                            .logo-bar img:hover {
-                                transform: scale(1.05);
-                            }
-                            .payment-card h2 {
-                                color: #1a1a1a;
-                                margin-bottom: 10px;
-                                font-size: 1.5rem;
-                            }
-                            .payment-card p {
-                                color: #555;
-                                margin-bottom: 20px;
-                                font-size: 0.95rem;
-                            }
-                            .amount-box {
-                                font-size: 1.6rem;
-                                font-weight: 700;
-                                color: #1369FF;
-                                margin-bottom: 25px;
-                            }
-                            button {
-                                background: linear-gradient(135deg, #1369FF, #0052cc);
-                                color: #fff;
-                                border: none;
-                                border-radius: 10px;
-                                padding: 14px 28px;
-                                font-size: 1rem;
-                                cursor: pointer;
-                                transition: all 0.3s ease;
-                            }
-                            button:hover {
-                                background: #0047b3;
-                                transform: translateY(-2px);
-                                box-shadow: 0 4px 12px rgba(19,105,255,0.3);
-                            }
-                            .loader {
-                                display: none;
-                                margin: 20px auto;
-                                border: 4px solid #f3f3f3;
-                                border-top: 4px solid #1369FF;
-                                border-radius: 50%;
-                                width: 30px;
-                                height: 30px;
-                                animation: spin 1s linear infinite;
-                            }
-                            .secure-note {
-                                font-size: 0.85rem;
-                                color: #777;
-                                margin-top: 15px;
-                            }
-                            @keyframes fadeIn {
-                                from { opacity: 0; transform: translateY(15px); }
-                                to { opacity: 1; transform: translateY(0); }
-                            }
-                            @keyframes spin {
-                                0% { transform: rotate(0deg); }
-                                100% { transform: rotate(360deg); }
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        <div class='payment-card'>
-                            <!-- Logo bar -->
-                            <div class='logo-bar'>
-                                <img src='https://travelwheel.ng/public/assetsU/assets/img/favicon/twlogo.png' alt='TravelWheel Logo'>
-                                
-                            </div>
+            return response()->make('
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Redirecting to BudPay</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <script src="https://inlinepay.budpay.com/budpay-inline-custom.js"></script>
 
-                            <h2>Redirecting to BudPay</h2>
-                            <p>You’re about to complete your <b>Support Assistance</b> payment securely.</p>
+                    <style>
+                        body {
+                            font-family: Segoe UI, Arial, sans-serif;
+                            background: #f8fafc;
+                            margin: 0;
+                            padding: 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            height: 100vh;
+                        }
+                        .payment-card {
+                            background: #fff;
+                            border-radius: 18px;
+                            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+                            padding: 45px 35px;
+                            max-width: 430px;
+                            width: 100%;
+                            text-align: center;
+                            animation: fadeIn 0.6s ease-in-out;
+                        }
+                        .logo-bar img {
+                            height: 30px;
+                            margin-bottom: 20px;
+                        }
+                        .amount-box {
+                            font-size: 1.7rem;
+                            font-weight: 700;
+                            color: #0d1883;
+                            margin: 25px 0;
+                        }
+                        #payBtn {
+                            background: linear-gradient(135deg, #0d1883, #2d39b6);
+                            color: #fff;
+                            border: none;
+                            border-radius: 10px;
+                            padding: 15px 30px;
+                            font-size: 1rem;
+                            cursor: pointer;
+                            transition: 0.3s ease;
+                            width: 100%;
+                        }
+                        #payBtn:hover {
+                            background: #0c146e;
+                            transform: translateY(-2px);
+                        }
+                        .loader {
+                            display: none;
+                            margin: 15px auto;
+                            border: 4px solid #f3f3f3;
+                            border-top: 4px solid #0d1883;
+                            border-radius: 50%;
+                            width: 32px;
+                            height: 32px;
+                            animation: spin 1s linear infinite;
+                        }
+                        .secure-note {
+                            margin-top: 20px;
+                            font-size: 0.85rem;
+                            color: #777;
+                        }
+                        @keyframes fadeIn {
+                            from {opacity: 0; transform: translateY(10px);}
+                            to {opacity: 1; transform: translateY(0);}
+                        }
+                        @keyframes spin {
+                            0% { transform: rotate(0deg);}
+                            100% { transform: rotate(360deg);}
+                        }
+                    </style>
+                </head>
 
-                            <div class='amount-box'>₦{$amountValue}</div>
+                <body>
+                    <div class="payment-card">
 
-                            <button id='payBtn'>Proceed to Pay Securely</button>
-                            <div class='loader' id='loader'></div>
-
-                            <p class='secure-note'>Secured payment powered by BudPay</p>
+                        <div class="logo-bar">
+                            <img src="https://travelwheel.ng/public/assetsU/assets/img/favicon/twlogo.png" alt="TravelWheel Logo">
                         </div>
 
-                        <script>
-                            const payBtn = document.getElementById('payBtn');
-                            const loader = document.getElementById('loader');
+                        <h2 style="color:#1a1a1a; margin-bottom: 8px;">Redirecting to BudPay</h2>
+                        <p style="color:#555;">You’re about to complete your <b>'.$product_title.'</b> payment securely.</p>
 
-                            payBtn.addEventListener('click', function(e) {
-                                e.preventDefault();
-                                loader.style.display = 'block';
-                                payBtn.disabled = true;
-                                payBtn.textContent = 'Launching...';
+                        <div class="amount-box">₦'.number_format($amount).'</div>
 
-                                BudPayCheckout({
-                                    key: '{$publicKey}',
-                                    email: '{$email}',
-                                    amount: '{$amountValue}',
-                                    first_name: '{$firstName}',
-                                    last_name: '{$lastName}',
-                                    currency: 'NGN',
-                                    reference: '{$ref}',
-                                    callback_url: '{$callbackUrl}',
-                                    onSuccess: function(response) {
-                                        alert('✅ Payment completed successfully! Reference: ' + response.reference);
-                                        window.location.href = '{$callbackUrl}?reference=' + response.reference;
-                                    },
-                                    onClose: function() {
-                                        alert('⚠️ Transaction was not completed or window closed.');
-                                        loader.style.display = 'none';
-                                        payBtn.disabled = false;
-                                        payBtn.textContent = 'Proceed to Pay Securely';
-                                    },
-                                    custom_fields: {
-                                        support_type: '{$data['request_type']}',
-                                        phone: '{$data['phone']}'
-                                    }
-                                });
+                        <button id="payBtn">Proceed to Pay Securely</button>
+
+                        <div class="loader" id="loader"></div>
+
+                        <p class="secure-note">Secured payment powered by BudPay</p>
+                    </div>
+
+                    <script>
+                        const payBtn = document.getElementById("payBtn");
+                        const loader = document.getElementById("loader");
+
+                        payBtn.addEventListener("click", function(e) {
+                            e.preventDefault();
+                            loader.style.display = "block";
+                            payBtn.disabled = true;
+                            payBtn.textContent = "Launching...";
+
+                            BudPayCheckout({
+                                key: "'.$publicKey.'",
+                                email: "'.$email.'",
+                                amount: "'.$amount.'",
+                                first_name: "'.$firstName.'",
+                                last_name: "'.$lastName.'",
+                                currency: "NGN",
+                                reference: "'.$reference.'",
+                                callback_url: "'.$callbackUrl.'",
+
+                                onSuccess: function(res){
+                                    window.location.href = "'.$callbackUrl.'?reference=" + res.reference;
+                                },
+
+                                onClose: function(){
+                                    loader.style.display = "none";
+                                    payBtn.disabled = false;
+                                    payBtn.textContent = "Proceed to Pay Securely";
+
+                                    window.location.href = "'.url()->previous().'?payment=failed";
+                                }
+
+                                
                             });
-                        </script>
-                    </body>
-                    </html>
-                    ");
-
-
-
-            } catch (\Exception $e) {
-                \Log::error('BudPay Inline Error: '.$e->getMessage());
-                return Redirect::back()->with('error', 'BudPay error: '.$e->getMessage());
-            }
+                        });
+                    </script>
+                </body>
+                </html>
+                ');
         }
-
-
     }
- 
 
-    public function budpayCallback(Request $request)
+    private function launchSeerbitPayment($amount, $email, $phone, $customerName, $reference, $product_title)
+    {
+        try {
+            $callbackUrl = route('seerbit.support');
+
+            $payload = [
+                "amount"            => $amount,
+                "callbackUrl"       => $callbackUrl,
+                "country"           => "NG",
+                "currency"          => "NGN",
+                "email"             => $email,
+                "client_name"       => $customerName,
+                "paymentReference"  => $reference,
+                "productDescription"=> $product_title,
+                "productId"         => "PRD".$reference,
+            ];
+
+            $response = SeerBit::Standard()->Initialize($payload);
+
+            if (
+                isset($response['data']['payments']['redirectLink']) &&
+                !empty($response['data']['payments']['redirectLink'])
+            ) {
+                return redirect($response['data']['payments']['redirectLink']);
+            }
+
+            Log::error("SeerBit Init Failed", ['response' => $response]);
+
+            return back()->with('error', "Unable to start SeerBit payment.");
+        }
+        catch (\Exception $e) {
+            Log::error("SeerBit Init Exception", ['error' => $e->getMessage()]);
+            return back()->with('error', "SeerBit Error: ".$e->getMessage());
+        }
+    }
+
+
+    public function unifiedCallback(Request $request)
     {
         $reference = $request->query('reference');
+
         if (!$reference) {
-            return redirect()->route('air.support_ticket')->with('error', 'Missing payment reference.');
+            Log::warning('Unified Callback: Missing payment reference in URL.', ['url' => $request->fullUrl()]);
+            return redirect()->route('air.support_ticket')
+                ->with('error', 'Missing payment reference. Please contact support.');
         }
-        //dd($request);
+
         try {
             $verify = Http::withToken(env('BUDPAY_SECRET_KEY'))
                 ->get("https://api.budpay.com/api/v2/transaction/verify/{$reference}");
 
-            $data = $verify->json();
+            if ($verify->failed()) {
+                $status = $verify->status();
+                $body = $verify->body();
+                
+                Log::error("BudPay API Verification Failed (HTTP Error)", [
+                    'reference' => $reference,
+                    'status' => $status,
+                    'response_body' => $body,
+                ]);
 
-            //dd($data);
-
-            if ($verify->ok() && isset($data['status']) && $data['status'] === true) {
-                $support = SupportRequest::where('payment_reference', $reference)->first();
-
-                if ($support) {
-                    $support->update(['payment_status' => 'paid']);
-
-                    // === Send Email to Client ===
-                    Mail::to($support->email)->send(new \App\Mail\PaymentSuccessMail($support));
-
-                    // === Send Notification to Support Department ===
-                    Mail::to('damilola@travelwheel.ng')->send(new \App\Mail\SupportNotificationMail($support));
-                }
-
-                return redirect()->route('air.support_success')->with('success', 'Payment successful!');
+                return redirect()->route('air.support_ticket')
+                    ->with('error', "Error communicating with payment gateway (Status: {$status}). Please try again.");
             }
 
+            $data = $verify->json();
 
-            dd($data);
-            \Log::error('BudPay verification failed', ['response' => $data]);
-            return redirect()->route('air.support_ticket')->with('error', 'Payment verification failed.');
+            Log::info("BudPay API Verification Response", ['reference' => $reference, 'data' => $data]);
+
+            $txnStatus = $data['data']['transaction_status'] ?? $data['data']['status'] ?? null;
+
+            if ($txnStatus !== 'success' && $txnStatus !== 'completed') {
+                Log::warning("Payment Verification Status Not Success", [
+                    'reference' => $reference,
+                    'budpay_status' => $txnStatus,
+                ]);
+                return redirect()->route('air.support_ticket')
+                    ->with('error', 'Payment was not successfully completed. Status: ' . ($txnStatus ?? 'Unknown'));
+            }
+
+            $models = [
+                'flight_assist'     => \App\Models\SupportRequest::class,
+                'extra_luggage'     => \App\Models\ExtraLuggage::class,
+                'visa_confirmation' => \App\Models\VisaConfirmation::class,
+                'yellow_card'       => \App\Models\YellowCard::class,
+            ];
+
+            $record = null;
+            $productType = null;
+
+            foreach ($models as $type => $modelClass) {
+                $record = $modelClass::where('payment_reference', $reference)->first();
+                if ($record) {
+                    $productType = $type;
+                    break;
+                }
+            }
+
+            if (!$record) {
+                Log::error("Payment Success BUT no record found in database", ['reference' => $reference]);
+                return redirect()->route('air.support_ticket')->with('error', 'We received payment but cannot find your request. Please contact support.');
+            }
+
+            
+            if ($record->payment_status !== 'paid') {
+                $record->update(['payment_status' => 'paid']);
+                Log::info("Record status updated to 'paid'", ['reference' => $reference, 'type' => $productType]);
+            } else {
+                Log::warning("Duplicate callback received for paid transaction", ['reference' => $reference, 'type' => $productType]);
+            }
+
+            $successRoute = 'air.support.success'; 
+            $supportMaill = "damilola@travelwheel.ng";
+
+            switch ($productType) {
+
+            case 'flight_assist':
+                Mail::to($record->email)->send(new \App\Mail\PaymentSuccessMail($record));
+                Mail::to($supportMaill)
+                    ->send(new \App\Mail\SupportNotificationMail($record));
+                $message = 'Flight Assist Payment Successful!';
+                break;
+
+            case 'extra_luggage':
+                if (!$record instanceof \App\Models\ExtraLuggage) {
+                        $record = \App\Models\ExtraLuggage::where('payment_reference', $reference)->first();
+                    }
+                // dd($record, $record->visa_file);
+                    Mail::to($record->email)->send(new \App\Mail\ExtraLuggageSuccessMail($record));
+                        $attachmentPath1 = storage_path('app/public/' . $record->data_page);
+                        $attachmentPath2 = storage_path('app/public/' . $record->ticket);
+
+                    Mail::to($supportMaill)->send( new \App\Mail\ExtraLuggageNotificationMail($record, [
+                        ['file' => $attachmentPath1, 'options' => []],
+                        ['file' => $attachmentPath2, 'options' => []],
+                        ])
+                    );
+                $message = 'Extra Luggage Payment Successful!';
+                break;
+
+            case 'visa_confirmation':
+                if (!$record instanceof \App\Models\VisaConfirmation) {
+                    $record = \App\Models\VisaConfirmation::where('payment_reference', $reference)->first();
+                }
+               // dd($record, $record->visa_file);
+                Mail::to($record->email)->send(new \App\Mail\VisaConfirmationSuccessMail($record));
+                    $attachmentPath = storage_path('app/public/' . $record->visa_file);
+
+                Mail::to($supportMaill)->send( new \App\Mail\VisaConfirmationNotificationMail($record, [
+                     ['file' => $attachmentPath, 'options' => []]])
+                );
+                $message = 'Visa Confirmation Payment Successful!';
+                break;
+
+            case 'yellow_card':
+                if (!$record instanceof \App\Models\YellowCard) {
+                    $record = \App\Models\YellowCard::where('payment_reference', $reference)->first();
+                }
+               // dd($record, $record->visa_file);
+                Mail::to($record->email)->send(new \App\Mail\YellowCardSuccessMail($record));
+                    $attachmentPath = storage_path('app/public/' . $record->data_page);
+
+                Mail::to($supportMaill)->send( new \App\Mail\YellowCardNotificationMail($record, [
+                     ['file' => $attachmentPath, 'options' => []]])
+                );
+                $message = 'Yellow Card Payment Successful!';
+                break;
+
+            default:
+                $message = 'Payment Successful!';
+                break;
+        }
+        //dd($record);
+
+           /* if ($productType === 'flight_assist') {
+                Mail::to($record->email)->send(new \App\Mail\PaymentSuccessMail($record));
+                Mail::to('support@travelwheel.ng')->send(new \App\Mail\SupportNotificationMail($record));
+                $message = 'Flight Assist Payment Successful!';
+            } elseif ($productType === 'extra_luggage') {
+                Mail::to($record->email)->send(new \App\Mail\ExtraLuggageSuccessMail($record));
+                Mail::to('support@travelwheel.ng')->send(new \App\Mail\ExtraLuggageNotificationMail($record));
+                $message = 'Extra Luggage Payment Successful!';
+            } elseif ($productType === 'visa_confirmation') {
+                Mail::to($record->email)->send(new \App\Mail\VisaConfirmationSuccessMail($record));
+                Mail::to('support@travelwheel.ng')->send(new \App\Mail\VisaConfirmationNotificationMail($record));
+                $message = 'Visa Confirmation Payment Successful!';
+            } elseif ($productType === 'yellow_card') {
+                Mail::to($record->email)->send(new \App\Mail\YellowCardSuccessMail($record));
+                Mail::to('support@travelwheel.ng')->send(new \App\Mail\YellowCardNotificationMail($record));
+                $message = 'Yellow Card Payment Successful!';
+            }*/
+            
+            return redirect()->route($successRoute)->with('success', $message);
 
         } catch (\Exception $e) {
-            \Log::error('BudPay Callback Error: ' . $e->getMessage());
-            return redirect()->route('air.support_ticket')->with('error', 'Error verifying payment.');
+            Log::error("Unified Callback Critical Error", [
+                'reference' => $reference,
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+            
+            return redirect()->route('air.support_ticket')
+                ->with('error', 'Error verifying payment. We have been notified of the issue.');
         }
     }
 
-    public function supportSuccess()
+    public function callbackSeerbitS(Request $request)
     {
-        return view('air.support.success')
-            ->with('success', 'Payment completed successfully!');
-    }
-}
+        //dd($request);
+        $reference = $request->query('reference');
+        $message = $request->query('message');
+           
+        Log::info("SeerBit Callback Received", ['reference' => $reference]);
 
+       
+
+        if (!$message == "Successful") {
+            Log::error("SeerBit Payment Failed After Retries", [
+                'reference' => $reference
+            ]);
+
+            return redirect()->route('air.support_ticket')
+                ->with('error', 'Payment failed. Please try again.');
+        }
+        //dd($response);
+
+        //return redirect()->route('air.support_ticket')
+        //->with('success', 'Transaction successful and verified!');       
+
+        $models = [
+            'flight_assist'      => \App\Models\SupportRequest::class,
+            'extra_luggage'      => \App\Models\ExtraLuggage::class,
+            'visa_confirmation'  => \App\Models\VisaConfirmation::class,
+            'yellow_card'        => \App\Models\YellowCard::class,
+        ];
+
+        $record = null; 
+        $productType = null;
+
+        foreach ($models as $type => $model) {
+            $record = $model::where('payment_reference', $reference)->first();
+            if ($record) {
+                $productType = $type;
+                break;
+            }
+        }
+
+        if (!$record) {
+            Log::error("SeerBit Paid but no record found", ['reference' => $reference]);
+            return redirect()->route('air.support_ticket')
+                ->with('error', 'Payment received but no matching request found.');
+        }
+
+        //Update payment status
+        $record->update(['payment_status' => 'paid']);
+        $supportMaill = "damilola@travelwheel.ng";
+        switch ($productType) {
+
+            case 'flight_assist':
+                Mail::to($record->email)->send(new \App\Mail\PaymentSuccessMail($record));
+                Mail::to($supportMaill)
+                    ->send(new \App\Mail\SupportNotificationMail($record));
+                $message = 'Flight Assist Payment Successful!';
+                break;
+
+            case 'extra_luggage':
+                if (!$record instanceof \App\Models\ExtraLuggage) {
+                        $record = \App\Models\ExtraLuggage::where('payment_reference', $reference)->first();
+                    }
+                // dd($record, $record->visa_file);
+                    Mail::to($record->email)->send(new \App\Mail\ExtraLuggageSuccessMail($record));
+                        $attachmentPath1 = storage_path('app/public/' . $record->data_page);
+                        $attachmentPath2 = storage_path('app/public/' . $record->ticket);
+
+                    Mail::to($supportMaill)->send( new \App\Mail\ExtraLuggageNotificationMail($record, [
+                        ['file' => $attachmentPath1, 'options' => []],
+                        ['file' => $attachmentPath2, 'options' => []],
+                        ])
+                    );
+                $message = 'Extra Luggage Payment Successful!';
+                break;
+
+            case 'visa_confirmation':
+                if (!$record instanceof \App\Models\VisaConfirmation) {
+                    $record = \App\Models\VisaConfirmation::where('payment_reference', $reference)->first();
+                }
+               // dd($record, $record->visa_file);
+
+                Mail::to($record->email)->send(new \App\Mail\VisaConfirmationSuccessMail($record));
+                    $attachmentPath = storage_path('app/public/' . $record->visa_file);
+
+                Mail::to($supportMaill)->send( new \App\Mail\VisaConfirmationNotificationMail($record, [
+                     ['file' => $attachmentPath, 'options' => []]])
+                );
+               // Mail::to($supportMaill)
+                   // ->send(new \App\Mail\VisaConfirmationNotificationMail($record));
+                $message = 'Visa Confirmation Payment Successful!';
+                break;
+
+            case 'yellow_card':
+                if (!$record instanceof \App\Models\YellowCard) {
+                    $record = \App\Models\YellowCard::where('payment_reference', $reference)->first();
+                }
+               // dd($record, $record->visa_file);
+                Mail::to($record->email)->send(new \App\Mail\YellowCardSuccessMail($record));
+                    $attachmentPath = storage_path('app/public/' . $record->data_page);
+
+                Mail::to($supportMaill)->send( new \App\Mail\YellowCardNotificationMail($record, [
+                     ['file' => $attachmentPath, 'options' => []]])
+                );
+                $message = 'Yellow Card Payment Successful!';
+                break;
+
+            default:
+                $message = 'Payment Successful!';
+                break;
+        }
+
+        return redirect()->route('air.support.success')  ->with('success', $message);
+    }
+  
+
+    public function supportSuccess()
+    {   $message = "";
+
+        return view('air.support.success')
+            ->with('success', $message);
+    }
+};

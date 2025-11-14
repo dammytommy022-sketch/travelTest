@@ -136,10 +136,24 @@ Route::get('/air/protocol_generate2', [App\Http\Controllers\ProtocolController::
 
 
 //Support Product
+Route::get('/air/support', [SupportController::class, 'index'])->name('air.support');
 Route::get('/air/support_ticket', [SupportController::class, 'ticketAssit'])->name('air.support_ticket');
 Route::post('/air/support_ticketSave', [SupportController::class, 'ticketSave'])->name('air.support_ticketSave');
 Route::get('/callback/budpay', [SupportController::class, 'budpayCallback'])->name('callback.budpay');
-Route::get('/air/support_success', [SupportController::class, 'supportSuccess'])->name('air.support_success');
+Route::get('/air/support/success', [SupportController::class, 'supportSuccess'])->name('air.support.success');
+Route::get('/support/seerbit/callback', [App\Http\Controllers\SupportController::class, 'callbackSeerbitS'])->name('seerbit.support');
+
+// UNIFIED CALLBACK FOR ALL SUPPORT PRODUCTS
+Route::get('/support/callback', [SupportController::class, 'unifiedCallback'])->name('callback.budpay');
+
+
+  Route::post('air/support/extra_luggage',[SupportController::class, 'saveExtraLuggage'])->name('support.extra_luggage.save');
+  Route::post('air/support/extra_luggage', [SupportController::class, 'submitExtraLuggage'])->name('air.extra_luggage.submit');
+
+  Route::post('/visaConfirmation',  [SupportController::class, 'saveVisaConfirmation'])->name('support.visa_confirmation.save');
+  Route::post('/air/support/visaConfirmation', [SupportController::class, 'submitVisa'])->name('air.support.visaConfirmation');
+  Route::post('air/support/yellowCard', [SupportController::class, 'submitYellowCard'])->name('air.yellow_card.submit');
+
 
 //admin
 Route::get('/admin', function () {
