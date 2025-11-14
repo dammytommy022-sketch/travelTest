@@ -25,6 +25,7 @@ class SupportRequest extends Model
         'preferred_time',
         'phone',
         'email',
+        'payment_option',
         'additional_info',
         'payment_reference',
         'amount',

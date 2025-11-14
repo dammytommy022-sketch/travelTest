@@ -40,7 +40,7 @@
 <div id="call-widget"></div>
 <!-- script -->
 <script>
-    window.onload = function() {
+   /* window.onload = function() {
         PressOne.init("pk_574736ebxCP65U9wcijrvQ0zfcJIe", { 
         minimal: true,
         display: false,
