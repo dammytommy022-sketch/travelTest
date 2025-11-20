@@ -72,28 +72,28 @@
         <div class="tab-content" id="productTabsContent">
           {{-- 1️⃣ Flight Assist --}}
           <div class="tab-pane fade" id="assist" role="tabpanel" aria-labelledby="assist-tab">
-            <div class="">
+            <div class="card shadow">
             @include('air.support.ticketAssit.assit')
             </div>
           </div>
 
           {{-- 2️⃣ Extra Luggage --}}
           <div class="tab-pane fade" id="extra" role="tabpanel" aria-labelledby="extra-tab">
-            <div class="card shadow p-4">
+            <div class="card shadow">
               @include('air.support.extra_luggage.extra1')
             </div>
           </div>
 
           {{-- 3️⃣ Visa Confirmation --}}
           <div class="tab-pane fade" id="visa" role="tabpanel" aria-labelledby="visa-tab">
-            <div class="card shadow p-4">
+            <div class="card shadow">
               @include('air.support.visaConfirmation.visa_confirmation1')
             </div>
           </div>
 
           {{-- 4️⃣ Yellow Card Assistance --}}
           <div class="tab-pane fade" id="yellow" role="tabpanel" aria-labelledby="yellow-tab">
-            <div class="card shadow p-4">
+            <div class="card shadow">
               @include('air.support.yellowCard.yellow_card1')
             </div>
           </div>

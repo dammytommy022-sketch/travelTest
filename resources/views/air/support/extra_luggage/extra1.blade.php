@@ -143,27 +143,56 @@ $(document).ready(function() {
         airlineSelect.empty().append('<option value="">Select Airline</option>');
 
         if (category === 'local') {
-            airlineSelect.append(
-            '<option value="Air Peace">Air Peace</option>' +
-            '<option value="Azman Air">Azman Air</option>' +
-            '<option value="Arik Air">Arik Air</option>' +
-            '<option value="Dana Air">Dana Air</option>' +
-            '<option value="Ibom Air">Ibom Air</option>' +
-            '<option value="Max Air">Max Air</option>' +
-            '<option value="United Nigeria">United Nigeria</option>'
-        );
+            airlineSelect.append(`
+            <option value="Air Peace">Air Peace</option>
+            <option value="Dana Air">Dana Air</option>
+            <option value="Ibom Air">Ibom Air</option>
+            <option value="Arik Air">Arik Air</option>
+            <option value="Max Air">Max Air</option>
+            <option value="Azman Air">Azman Air</option>
+            <option value="Aero Contractors">Aero Contractors</option>
+            <option value="Overland Airways">Overland Airways</option>
+            <option value="Med-View Airlines">Med-View Airlines</option>
+            <option value="Dornier Aviation Nigeria">Dornier Aviation Nigeria</option>
+            <option value="Green Africa Airways">Green Africa Airways</option>
+            <option value="ValueJet Nigeria ">ValueJet Nigeria </option>
+            <option value="Kabo Air ">Kabo Air </option>
+            <option value="First Nation Airways">First Nation Airways</option>
+            <option value="Hak Air">Hak Air</option>
+            <option value="Associated Airlines">Associated Airlines</option>
+            <option value="Rano Air">Rano Air</option>
+            <option value="Umza Air">Umza Air</option>
+            <option value="XEjet">XEjet</option>
+            <option value="United Nigeria">United Nigeria</option>
+        `);
 
         }
 
         else if (category === 'international') {
-            airlineSelect.append(
-            '<option value="British Airways">British Airways</option>' +
-            '<option value="Emirates">Emirates</option>' +
-            '<option value="Qatar Airways">Qatar Airways</option>' +
-            '<option value="Ethiopian Airlines">Ethiopian Airlines</option>' +
-            '<option value="Lufthansa">Lufthansa</option>'
-        );
-
+           airlineSelect.append(`
+            <option value="Qatar Airways">Qatar Airways</option>
+            <option value="Emirates">Emirates</option>
+            <option value="British Airways">British Airways</option>
+            <option value="Ethiopian Airlines">Ethiopian Airlines</option>
+            <option value="Lufthansa">Lufthansa</option>
+            <option value="KLM">KLM (Royal Dutch Airlines)</option>
+            <option value="Turkish Airlines">Turkish Airlines</option>
+            <option value="Air France">Air France</option>
+            <option value="EgyptAir">EgyptAir</option>
+            <option value="South African Airways">South African Airways</option>
+            <option value="Delta Airlines">Delta Airlines</option>
+            <option value="Virgin Atlantic">Virgin Atlantic</option>
+            <option value="RwandAir">RwandAir</option>
+            <option value="Royal Air Maroc">Royal Air Maroc</option>
+            <option value="ASKY Airlines">ASKY Airlines</option>
+            <option value="FGB">FGB</option>
+            <option value="Kenya Airways">Kenya Airways</option>
+            <option value="Air Maroc">Air Maroc</option>
+            <option value="Airpeace">Airpeace</option>
+            <option value="Taag Angola">Taag Angola</option>
+            <option value="Uganda Airlines">Uganda Airlines</option>
+            <option value="United Airlines">United Airlines</option>
+        `);
         }
 
     });

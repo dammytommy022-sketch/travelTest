@@ -505,6 +505,7 @@ class SupportController extends Controller
                     }
                 // dd($record, $record->visa_file);
                     Mail::to($record->email)->send(new \App\Mail\ExtraLuggageSuccessMail($record));
+
                         $attachmentPath1 = storage_path('app/public/' . $record->data_page);
                         $attachmentPath2 = storage_path('app/public/' . $record->ticket);
 
@@ -522,6 +523,7 @@ class SupportController extends Controller
                 }
                // dd($record, $record->visa_file);
                 Mail::to($record->email)->send(new \App\Mail\VisaConfirmationSuccessMail($record));
+
                     $attachmentPath = storage_path('app/public/' . $record->visa_file);
 
                 Mail::to($supportMaill)->send( new \App\Mail\VisaConfirmationNotificationMail($record, [
@@ -534,8 +536,8 @@ class SupportController extends Controller
                 if (!$record instanceof \App\Models\YellowCard) {
                     $record = \App\Models\YellowCard::where('payment_reference', $reference)->first();
                 }
-               // dd($record, $record->visa_file);
                 Mail::to($record->email)->send(new \App\Mail\YellowCardSuccessMail($record));
+                
                     $attachmentPath = storage_path('app/public/' . $record->data_page);
 
                 Mail::to($supportMaill)->send( new \App\Mail\YellowCardNotificationMail($record, [
