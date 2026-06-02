@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiVisaController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\CarController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/popular-visas', [ApiVisaController::class, 'popularVisas']);
 Route::get('/reviews', [RequestController::class, 'index']);
 Route::post('/reviews', [RequestController::class, 'store']);
+Route::post('/distance', [CarController::class, 'distance'])->name('api.distance');

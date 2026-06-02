@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\VisaController;
 use App\Http\Controllers\SupportController;
-
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\TransferController;
 Route::get('/', function () {return view('index');})->name('index');
 
 Route::get('/pssc', function () {
@@ -153,6 +154,37 @@ Route::get('/support/callback', [SupportController::class, 'unifiedCallback'])->
   Route::post('/visaConfirmation',  [SupportController::class, 'saveVisaConfirmation'])->name('support.visa_confirmation.save');
   Route::post('/air/support/visaConfirmation', [SupportController::class, 'submitVisa'])->name('air.support.visaConfirmation');
   Route::post('air/support/yellowCard', [SupportController::class, 'submitYellowCard'])->name('air.yellow_card.submit');
+
+//carhire
+  Route::get('/carhire', [CarController::class, 'index'])->name('carhire.index');
+  Route::get('/booking-form', function () {
+    return view('carhire.booking');
+})->name('booking.form');
+
+Route::prefix('carhire')->name('carhire.')->group(function () {
+
+    // Selection page (vehicle type + category)
+    Route::get('/',         [CarController::class, 'index'])           ->name('index');
+
+    // Form submission → triggers payment
+    Route::post('/submit',  [CarController::class, 'submitCarHire'])          ->name('submit');
+
+    // Payment callbacks
+    Route::get('/callback/budpay',  [CarController::class, 'budpayCallbackCarHire'])  ->name('budpay.callback');
+    Route::get('/callback/seerbit', [CarController::class, 'seerbitCallbackCarHire']) ->name('seerbit.callback');
+
+    // Success page
+    Route::get('/success',  [CarController::class, 'successCarHire'])         ->name('success');
+
+});
+
+// ── Transfer ──────────────────────────────────────────────────────────────
+Route::prefix('transfer')->name('transfer.')->group(function () {
+    Route::post('/submit',         [CarController::class, 'submitTransfer'])          ->name('submit');
+    Route::get('/callback/budpay', [CarController::class, 'budpayCallbackTransfer'])  ->name('budpay.callback');
+    Route::get('/callback/seerbit',[CarController::class, 'seerbitCallbackTransfer']) ->name('seerbit.callback');
+    Route::get('/success',         [CarController::class, 'successTransfer'])         ->name('success');
+});
 
 
 //admin

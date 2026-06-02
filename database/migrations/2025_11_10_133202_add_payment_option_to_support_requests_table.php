@@ -13,7 +13,7 @@ class AddPaymentOptionToSupportRequestsTable extends Migration
      */
     public function up(): void
     {
-        Schema::table('support_requests', function (Blueprint $table) {
+        Schema::table('support_request', function (Blueprint $table) {
             // Add a string column to store 'budpay' or 'seerbit'
             $table->string('payment_option')->after('email'); 
         });
@@ -24,7 +24,7 @@ class AddPaymentOptionToSupportRequestsTable extends Migration
      */
     public function down(): void
     {
-        Schema::table('support_requests', function (Blueprint $table) {
+        Schema::table('support_request', function (Blueprint $table) {
             $table->dropColumn('payment_option');
         });
     }

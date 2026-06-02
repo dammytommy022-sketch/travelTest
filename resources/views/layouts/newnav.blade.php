@@ -130,6 +130,17 @@
                                 </div>
                             </a>
                         </li>
+                        <li class="nav-item ">
+                            <a class="nav-link product-nav" href="{{route('carhire.index')}}">
+                                <div class="nav-content">
+                                    <img src="{{ asset('assets/img/pc.png') }}" class="image-fluid img-W1" alt="">
+                                    <div class="nav-text">
+                                        <span class="product-nav main-color">Car </span>
+                                        <span class="product-nav main-color">Hire</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
                     </ul> 
                 </div>
             </div>
