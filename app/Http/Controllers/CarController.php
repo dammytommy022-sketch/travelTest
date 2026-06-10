@@ -15,248 +15,1077 @@ class CarController extends Controller
     public function index()
     {
         $categories = [
+
+            /* ====================================================================
+            * SALOON
+            * Regular   = older reliable models (Corolla, Sunny, Accent, Yaris)
+            * Standard  = mid-age popular models (Camry, Accord, Elantra, Optima)
+            * Executive = new premium models (Avalon, Camry XSE, Accord Sport, K5)
+            * ==================================================================== */
             'saloon' => [
-                'fuel_rate_per_km' => 50,
+                'fuel_rate_per_km' => 1300,
                 'hourly_rate'      => 5000,
                 'items' => [
                     [
                         'name'       => 'Regular',
                         'price'      => 15000,
-                        'passengers' => '1 – 3',
+                        'passengers' => '1 – 3 Passengers',
                         'images'     => [
-                            asset('assets/image/saloon.jpg'),//front
-                            asset('assets/image/saloon.jpg'),//rear
-                            asset('assets/image/saloon.jpg'),//interior
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
                         ],
-                        'features' => [
-                            'Comfortable sedan vehicle',
-                            'Air conditioning',
-                            'Professional driver',
-                            'Suitable for short trips',
-                            'Basic luggage space',
+                        'models' => [
+                            [
+                                'name'  => 'Toyota Corolla',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Reliable and fuel-efficient sedan',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Comfortable rear seating',
+                                    'Adequate boot space',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Nissan Sunny',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Spacious interior for a compact car',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Smooth city ride',
+                                    'Basic luggage space',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Hyundai Accent',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Compact and agile city sedan',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Easy navigation in traffic',
+                                    'Decent boot capacity',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Toyota Yaris',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Nimble city car',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Low fuel consumption',
+                                    'Ideal for short airport runs',
+                                ],
+                            ],
                         ],
                     ],
                     [
                         'name'       => 'Standard',
                         'price'      => 20000,
-                        'passengers' => '1 – 3',
+                        'passengers' => '1 – 3 Passengers',
                         'images'     => [
-                            asset('assets/image/saloon.jpg'),//front
-                            asset('assets/image/saloon.jpg'),//rear
-                            asset('assets/image/saloon.jpg'),//interior
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
                         ],
-                        'features' => [
-                            'Mid-range sedan vehicle',
-                            'Air conditioning',
-                            'Professional uniformed driver',
-                            'Suitable for city & airport trips',
-                            'Complimentary bottled water',
-                            'Adequate boot space',
+                        'models' => [
+                            [
+                                'name'  => 'Toyota Camry',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Smooth and comfortable mid-size sedan',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Leather-trimmed interior',
+                                    'Complimentary bottled water',
+                                    'Spacious boot for luggage',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Honda Accord',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Sporty yet refined mid-size sedan',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Premium dashboard finish',
+                                    'Complimentary bottled water',
+                                    'Wide rear legroom',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Hyundai Elantra',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Modern compact sedan with bold design',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Advanced infotainment system',
+                                    'Complimentary bottled water',
+                                    'Comfortable suspension',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Kia Optima',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Stylish and spacious mid-size sedan',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Panoramic sunroof option',
+                                    'Complimentary bottled water',
+                                    'Generous legroom',
+                                ],
+                            ],
                         ],
                     ],
                     [
                         'name'       => 'Executive',
                         'price'      => 30000,
-                        'passengers' => '1 – 3',
+                        'passengers' => '1 – 3 Passengers',
                         'images'     => [
-                            asset('assets/image/saloon.jpg'),//front
-                            asset('assets/image/saloon.jpg'),//rear
-                            asset('assets/image/saloon.jpg'),//interior
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Toyota Avalon',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Full-size premium executive sedan',
+                                    'Dual-zone climate control',
+                                    'Smartly dressed chauffeur',
+                                    'JBL premium sound system',
+                                    'Complimentary refreshments',
+                                    'Meet & greet service',
+                                    'Large boot for luggage',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Toyota Camry XSE',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Sport-tuned executive saloon',
+                                    'Dual-zone climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Panoramic moonroof',
+                                    'Complimentary refreshments',
+                                    'Wi-Fi on request',
+                                    'Meet & greet service',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Honda Accord Sport',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Performance-grade executive sedan',
+                                    'Dual-zone climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Turbocharged smooth ride',
+                                    'Complimentary refreshments',
+                                    'Large boot for luggage',
+                                    'Meet & greet service',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Kia K5 GT',
+                                'image' => asset('assets/image/saloon.jpg'),
+                                'features' => [
+                                    'Premium sport executive sedan',
+                                    'Dual-zone climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Bose premium audio',
+                                    'Complimentary refreshments',
+                                    'Wi-Fi on request',
+                                    'Meet & greet service',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
+            /* ====================================================================
+            * SUV
+            * Regular   = older workhorse SUVs (CR-V, RAV4, Tucson, X-Trail)
+            * Standard  = current gen family SUVs (Highlander, Pilot, Pathfinder, Explorer)
+            * Executive = premium full-size SUVs (Prado, RX 350, GLE, X5)
+            * ==================================================================== */
+            'suv' => [
+                'fuel_rate_per_km' => 1300,
+                'hourly_rate'      => 8000,
+                'items' => [
+                    [
+                        'name'       => 'Regular',
+                        'price'      => 30000,
+                        'passengers' => '1 – 3 Passengers',
+                        'images'     => [
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Honda CR-V',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'Compact crossover SUV',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Raised seating position',
+                                    'Good luggage capacity',
+                                    'Smooth highway ride',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Toyota RAV4',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'Popular and reliable compact SUV',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Comfortable all-road ride',
+                                    'Spacious rear cabin',
+                                    'Good boot capacity',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Hyundai Tucson',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'Modern compact crossover',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Contemporary interior design',
+                                    'Comfortable for city & highway',
+                                    'Adequate luggage space',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Nissan X-Trail',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'Versatile family SUV',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Flexible seating arrangement',
+                                    'Smooth ride quality',
+                                    'Large boot space',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'name'       => 'Standard',
+                        'price'      => 40000,
+                        'passengers' => '1 – 3 Passengers',
+                        'images'     => [
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Toyota Highlander',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'Full-size 3-row family SUV',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Spacious third-row seating',
+                                    'Complimentary bottled water',
+                                    'Large boot for luggage',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Honda Pilot',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'Large family-friendly SUV',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Wide cabin with 3 rows',
+                                    'Complimentary bottled water',
+                                    'Entertainment screen option',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Nissan Pathfinder',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'Rugged yet comfortable mid-size SUV',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Tri-zone climate control',
+                                    'Complimentary bottled water',
+                                    'Excellent road presence',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Ford Explorer',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'American full-size SUV',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Panoramic sunroof',
+                                    'Complimentary bottled water',
+                                    'Spacious 3-row interior',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'name'       => 'Executive',
+                        'price'      => 60000,
+                        'passengers' => '1 – 3 Passengers',
+                        'images'     => [
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Toyota Land Cruiser Prado',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'Iconic premium off-road SUV',
+                                    'Dual-zone climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Terrain management system',
+                                    'Complimentary refreshments',
+                                    'Meet & greet service',
+                                    'Extra-large boot space',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Lexus RX 350',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'Luxury crossover SUV',
+                                    'Dual-zone climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Mark Levinson sound system',
+                                    'Complimentary refreshments',
+                                    'Panoramic sunroof',
+                                    'Meet & greet service',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Mercedes GLE',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'European premium full-size SUV',
+                                    'Dual-zone climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Burmester surround sound',
+                                    'Complimentary refreshments',
+                                    'Wi-Fi on request',
+                                    'Meet & greet service',
+                                ],
+                            ],
+                            [
+                                'name'  => 'BMW X5',
+                                'image' => asset('assets/image/suv.jpg'),
+                                'features' => [
+                                    'Sports Activity Vehicle — pure luxury',
+                                    'Dual-zone climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Harman Kardon audio system',
+                                    'Complimentary refreshments',
+                                    'Panoramic roof',
+                                    'Meet & greet service',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
+            /* ====================================================================
+            * MINI VAN
+            * Regular   = older high-roof vans (HiAce old, Previa, H1)
+            * Standard  = current people-carriers (HiAce new, Sienna, Carnival)
+            * Executive = premium vans (Vito, V-Class, Staria)
+            * ==================================================================== */
+            'van' => [
+                'fuel_rate_per_km' => 1300,
+                'hourly_rate'      => 10000,
+                'items' => [
+                    [
+                        'name'       => 'Regular',
+                        'price'      => 40000,
+                        'passengers' => 'Up to 5 Passengers',
+                        'images'     => [
+                            asset('assets/image/minivan.png'),
+                            asset('assets/image/minivan.png'),
+                            asset('assets/image/minivan.png'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Toyota HiAce (Old)',
+                                'image' => asset('assets/image/minivan.png'),
+                                'features' => [
+                                    'High-roof passenger van',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Group-friendly bench seating',
+                                    'Large luggage compartment',
+                                    'Reliable for inter-city runs',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Toyota Previa',
+                                'image' => asset('assets/image/minivan.png'),
+                                'features' => [
+                                    'Spacious mid-size people carrier',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Sliding rear doors',
+                                    'Comfortable for families',
+                                    'Good luggage space',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Hyundai H1',
+                                'image' => asset('assets/image/minivan.png'),
+                                'features' => [
+                                    'Compact high-roof van',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Adjustable rear seating',
+                                    'Easy entry & exit',
+                                    'Adequate boot storage',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'name'       => 'Standard',
+                        'price'      => 55000,
+                        'passengers' => 'Up to 5 Passengers',
+                        'images'     => [
+                            asset('assets/image/minivan.png'),
+                            asset('assets/image/minivan.png'),
+                            asset('assets/image/minivan.png'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Toyota HiAce',
+                                'image' => asset('assets/image/minivan.png'),
+                                'features' => [
+                                    'Current generation people mover',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Wide sliding doors for easy boarding',
+                                    'Complimentary bottled water',
+                                    'Generous luggage bay',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Toyota Sienna',
+                                'image' => asset('assets/image/minivan.png'),
+                                'features' => [
+                                    'American premium minivan',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Power sliding rear doors',
+                                    'Complimentary bottled water',
+                                    'Fold-flat rear seats',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Kia Carnival',
+                                'image' => asset('assets/image/minivan.png'),
+                                'features' => [
+                                    'Modern premium people carrier',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Panoramic sunroof',
+                                    'Complimentary bottled water',
+                                    'Captain rear seats',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'name'       => 'Executive',
+                        'price'      => 75000,
+                        'passengers' => 'Up to 5 Passengers',
+                        'images'     => [
+                            asset('assets/image/minivan.png'),
+                            asset('assets/image/minivan.png'),
+                            asset('assets/image/minivan.png'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Mercedes Vito',
+                                'image' => asset('assets/image/minivan.png'),
+                                'features' => [
+                                    'Premium executive van',
+                                    'Full climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Individual reclining captain seats',
+                                    'Complimentary refreshments',
+                                    'USB charging at every seat',
+                                    'Wi-Fi on request',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Mercedes V-Class',
+                                'image' => asset('assets/image/minivan.png'),
+                                'features' => [
+                                    'Top-tier luxury people carrier',
+                                    'Full climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Conference-style seating option',
+                                    'Complimentary refreshments',
+                                    'Panoramic roof',
+                                    'Wi-Fi & premium sound system',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Hyundai Staria',
+                                'image' => asset('assets/image/minivan.png'),
+                                'features' => [
+                                    'Futuristic premium people mover',
+                                    'Full climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Swivel captain seats',
+                                    'Complimentary refreshments',
+                                    'Ambient interior lighting',
+                                    'Large panoramic windows',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
+            /* ====================================================================
+            * BUS
+            * Regular   = older coaster buses
+            * Standard  = mid-age coaster / Sprinter / Transit
+            * Executive = new luxury coach
+            * ==================================================================== */
+            'bus' => [
+                'fuel_rate_per_km' => 1300,
+                'hourly_rate'      => 15000,
+                'items' => [
+                    [
+                        'name'       => 'Regular',
+                        'price'      => 40000,
+                        'passengers' => 'Up to 12 Passengers',
+                        'images'     => [
+                            asset('assets/image/coaster.jpg'),
+                            asset('assets/image/coaster.jpg'),
+                            asset('assets/image/coaster.jpg'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Toyota Coaster (Old)',
+                                'image' => asset('assets/image/coaster.jpg'),
+                                'features' => [
+                                    'Classic coaster bus',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Row seating for large groups',
+                                    'Overhead luggage racks',
+                                    'Reliable for group transfers',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Mitsubishi Rosa',
+                                'image' => asset('assets/image/coaster.jpg'),
+                                'features' => [
+                                    'Compact group transport bus',
+                                    'Air conditioning',
+                                    'Professional driver',
+                                    'Comfortable padded seating',
+                                    'Luggage compartment below',
+                                    'Easy boarding steps',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'name'       => 'Standard',
+                        'price'      => 55000,
+                        'passengers' => 'Up to 12 Passengers',
+                        'images'     => [
+                            asset('assets/image/coaster.jpg'),
+                            asset('assets/image/coaster.jpg'),
+                            asset('assets/image/coaster.jpg'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Toyota Coaster',
+                                'image' => asset('assets/image/coaster.jpg'),
+                                'features' => [
+                                    'Current generation coaster bus',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Reclining padded seats',
+                                    'Complimentary bottled water',
+                                    'Overhead luggage racks',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Mercedes Sprinter',
+                                'image' => asset('assets/image/coaster.jpg'),
+                                'features' => [
+                                    'European mid-size coach',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'High-roof standing clearance',
+                                    'Complimentary bottled water',
+                                    'Premium sound system',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Ford Transit',
+                                'image' => asset('assets/image/coaster.jpg'),
+                                'features' => [
+                                    'Versatile group transport bus',
+                                    'Full air conditioning',
+                                    'Professional uniformed driver',
+                                    'Flexible seating layout',
+                                    'Complimentary bottled water',
+                                    'Large luggage bay',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'name'       => 'Executive',
+                        'price'      => 75000,
+                        'passengers' => 'Up to 12 Passengers',
+                        'images'     => [
+                            asset('assets/image/coaster.jpg'),
+                            asset('assets/image/coaster.jpg'),
+                            asset('assets/image/coaster.jpg'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Mercedes Sprinter Exec',
+                                'image' => asset('assets/image/coaster.jpg'),
+                                'features' => [
+                                    'Executive configured Sprinter',
+                                    'Full climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Leather reclining seats',
+                                    'Complimentary refreshments',
+                                    'Onboard entertainment screens',
+                                    'USB charging at every seat',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Hyundai County',
+                                'image' => asset('assets/image/coaster.jpg'),
+                                'features' => [
+                                    'Modern luxury mini-coach',
+                                    'Full climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Individual comfort seats',
+                                    'Complimentary refreshments',
+                                    'Overhead lighting per seat',
+                                    'Large luggage compartment',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Toyota Coaster Deluxe',
+                                'image' => asset('assets/image/coaster.jpg'),
+                                'features' => [
+                                    'Deluxe edition luxury coaster',
+                                    'Full climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Reclining luxury seats',
+                                    'Complimentary refreshments',
+                                    'Onboard entertainment system',
+                                    'USB charging at every seat',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
+            /* ====================================================================
+            * LUXURY
+            * Regular   = entry luxury (Genesis G80, Chrysler 300, Lincoln MKZ)
+            * Standard  = mid luxury (Mercedes E-Class, BMW 5, Lexus ES)
+            * Executive = top tier (S-Class, BMW 7, LS 500, Rolls-Royce Ghost)
+            * ==================================================================== */
+            'luxury' => [
+                'fuel_rate_per_km' => 1300,
+                'hourly_rate'      => 20000,
+                'items' => [
+                    [
+                        'name'       => 'Regular',
+                        'price'      => 40000,
+                        'passengers' => '1 – 4 Passengers',
+                        'images'     => [
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Chrysler 300C',
+                                'image' => asset('assets/image/limo.avif'),
+                                'features' => [
+                                    'Entry luxury full-size sedan',
+                                    'Air conditioning',
+                                    'Professional chauffeur',
+                                    'Bold executive presence',
+                                    'Premium leather interior',
+                                    'Suitable for weddings & events',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Genesis G80',
+                                'image' => asset('assets/image/limo.avif'),
+                                'features' => [
+                                    'Korean premium luxury sedan',
+                                    'Air conditioning',
+                                    'Professional chauffeur',
+                                    'Quilted Nappa leather seats',
+                                    'Lexicon audio system',
+                                    'Elegant corporate presence',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Lincoln MKZ',
+                                'image' => asset('assets/image/limo.avif'),
+                                'features' => [
+                                    'American luxury mid-size sedan',
+                                    'Air conditioning',
+                                    'Professional chauffeur',
+                                    'Revel audio system',
+                                    'Panoramic retractable roof',
+                                    'Premium leather seating',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'name'       => 'Standard',
+                        'price'      => 55000,
+                        'passengers' => '1 – 4 Passengers',
+                        'images'     => [
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Mercedes E-Class',
+                                'image' => asset('assets/image/limo.avif'),
+                                'features' => [
+                                    'European mid-range luxury sedan',
+                                    'Full climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Burmester audio system',
+                                    'Complimentary champagne on request',
+                                    'Privacy partition available',
+                                    'Meet & greet service',
+                                ],
+                            ],
+                            [
+                                'name'  => 'BMW 5 Series',
+                                'image' => asset('assets/image/limo.avif'),
+                                'features' => [
+                                    'The ultimate executive driving machine',
+                                    'Full climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Harman Kardon audio',
+                                    'Complimentary champagne on request',
+                                    'Panoramic glass roof',
+                                    'Meet & greet service',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Lexus ES 350',
+                                'image' => asset('assets/image/limo.avif'),
+                                'features' => [
+                                    'Japanese premium executive sedan',
+                                    'Full climate control',
+                                    'Smartly dressed chauffeur',
+                                    'Mark Levinson audio system',
+                                    'Complimentary champagne on request',
+                                    'Ultra-quiet cabin',
+                                    'Meet & greet service',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'name'       => 'Executive',
+                        'price'      => 75000,
+                        'passengers' => '1 – 4 Passengers',
+                        'images'     => [
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
+                        ],
+                        'models' => [
+                            [
+                                'name'  => 'Mercedes S-Class',
+                                'image' => asset('assets/image/limo.avif'),
+                                'features' => [
+                                    'Pinnacle of luxury executive motoring',
+                                    'Dual-zone climate control',
+                                    'White-glove chauffeur service',
+                                    'Burmester 4D surround sound',
+                                    'Onboard bar & complimentary refreshments',
+                                    'Privacy partition',
+                                    'Red carpet meet & greet',
+                                ],
+                            ],
+                            [
+                                'name'  => 'BMW 7 Series',
+                                'image' => asset('assets/image/limo.avif'),
+                                'features' => [
+                                    'Flagship BMW executive limousine',
+                                    'Dual-zone climate control',
+                                    'White-glove chauffeur service',
+                                    'Bowers & Wilkins Diamond audio',
+                                    'Onboard bar & complimentary refreshments',
+                                    'Executive lounge rear seats',
+                                    'Red carpet meet & greet',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Lexus LS 500',
+                                'image' => asset('assets/image/limo.avif'),
+                                'features' => [
+                                    'Japanese flagship ultra-luxury sedan',
+                                    'Dual-zone climate control',
+                                    'White-glove chauffeur service',
+                                    'Shiatsu massage rear seats',
+                                    'Champagne & complimentary refreshments',
+                                    'Privacy partition',
+                                    'Flower arrangement on request',
+                                ],
+                            ],
+                            [
+                                'name'  => 'Rolls-Royce Ghost',
+                                'image' => asset('assets/image/limo.avif'),
+                                'features' => [
+                                    'The world\'s finest luxury automobile',
+                                    'Whisper-quiet climate control',
+                                    'White-glove chauffeur service',
+                                    'Bespoke starlight headliner',
+                                    'Dom Pérignon champagne service',
+                                    'Privacy partition',
+                                    'Red carpet arrival experience',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $transferVehicles = [
+
+            'saloon' => [
+                'thumb'  => asset('assets/image/saloon.jpg'),
+                'models' => [
+                    [
+                        'name'        => 'Toyota Camry',
+                        'rate_per_km' => 350,
+                        'passengers'  => '1 – 3 Passengers',
+                        'images'      => [
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
                         ],
                         'features' => [
-                            'Premium executive sedan',
+                            'Air conditioning',
+                            'Professional uniformed driver',
+                            'Comfortable leather seats',
+                            'Complimentary bottled water',
+                            'Spacious boot for luggage',
+                            'Meet & greet available',
+                        ],
+                    ],
+                    [
+                        'name'        => 'Honda Accord',
+                        'rate_per_km' => 350,
+                        'passengers'  => '1 – 3 Passengers',
+                        'images'      => [
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
+                        ],
+                        'features' => [
+                            'Air conditioning',
+                            'Professional driver',
+                            'Premium interior finish',
+                            'Complimentary bottled water',
+                            'Adequate boot space',
+                        ],
+                    ],
+                    [
+                        'name'        => 'Toyota Avalon',
+                        'rate_per_km' => 400,
+                        'passengers'  => '1 – 3 Passengers',
+                        'images'      => [
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
+                            asset('assets/image/saloon.jpg'),
+                        ],
+                        'features' => [
                             'Full climate control',
                             'Smartly dressed chauffeur',
-                            'Wi-Fi on request',
+                            'Premium leather interior',
                             'Complimentary refreshments',
+                            'Panoramic sunroof',
                             'Meet & greet service',
-                            'Large boot for luggage',
                         ],
                     ],
                 ],
             ],
 
             'suv' => [
-                'fuel_rate_per_km' => 70,
-                'hourly_rate'      => 8000,
-                'items' => [
+                'thumb'  => asset('assets/image/suv.jpg'),
+                'models' => [
                     [
-                        'name'       => 'Regular',
-                        'price'      => 30000,
-                        'passengers' => '1 – 3',
-                        'images'     => [
-                            asset('assets/image/suv.jpg'),//front
-                            asset('assets/image/suv.jpg'),//rear
-                            asset('assets/image/suv.jpg'),//interior
+                        'name'        => 'Toyota Highlander',
+                        'rate_per_km' => 500,
+                        'passengers'  => '1 – 3 Passengers',
+                        'images'      => [
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
                         ],
                         'features' => [
-                            'Standard SUV vehicle',
                             'Air conditioning',
                             'Professional driver',
-                            'Suitable for family trips',
-                            'Good luggage capacity',
+                            'Spacious 3-row seating',
+                            'Large boot capacity',
+                            'Ideal for families & groups',
                         ],
                     ],
                     [
-                        'name'       => 'Standard',
-                        'price'      => 40000,
-                        'passengers' => '1 – 3',
-                        'images'     => [
-                            asset('assets/image/suv.jpg'),//front
-                            asset('assets/image/suv.jpg'),//rear
-                            asset('assets/image/suv.jpg'),//interior
+                        'name'        => 'Lexus RX 350',
+                        'rate_per_km' => 600,
+                        'passengers'  => '1 – 3 Passengers',
+                        'images'      => [
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
                         ],
                         'features' => [
-                            'Mid-size SUV vehicle',
-                            'Full air conditioning',
-                            'Professional uniformed driver',
-                            'Ideal for airport & group trips',
-                            'Complimentary bottled water',
-                            'Spacious boot',
-                        ],
-                    ],
-                    [
-                        'name'       => 'Executive',
-                        'price'      => 60000,
-                        'passengers' => '1 – 3',
-                        'images'     => [
-                            asset('assets/image/suv.jpg'),//front
-                            asset('assets/image/suv.jpg'),//rear
-                            asset('assets/image/suv.jpg'),//interior
-                        ],
-                        'features' => [
-                            'Premium full-size SUV',
-                            'Dual-zone climate control',
+                            'Full climate control',
                             'Smartly dressed chauffeur',
-                            'Wi-Fi on request',
+                            'Premium leather interior',
+                            'Panoramic sunroof',
                             'Complimentary refreshments',
                             'Meet & greet service',
-                            'Panoramic sunroof (where available)',
-                            'Extra-large boot space',
+                        ],
+                    ],
+                    [
+                        'name'        => 'Ford Explorer',
+                        'rate_per_km' => 520,
+                        'passengers'  => '1 – 3 Passengers',
+                        'images'      => [
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
+                            asset('assets/image/suv.jpg'),
+                        ],
+                        'features' => [
+                            'Air conditioning',
+                            'Professional uniformed driver',
+                            'Ample boot space',
+                            'Complimentary bottled water',
+                            'Comfortable ride for long trips',
                         ],
                     ],
                 ],
             ],
 
             'van' => [
-                'fuel_rate_per_km' => 80,
-                'hourly_rate'      => 10000,
-                'items' => [
+                'thumb'  => asset('assets/image/minivan.png'),
+                'models' => [
                     [
-                        'name'       => 'Regular',
-                        'price'      => 40000,
-                        'passengers' => 'Up to 5',
-                        'images'     => [
-                            asset('assets/image/minivan.png'),//front
-                            asset('assets/image/minivan.png'),//rear
-                            asset('assets/image/minivan.png'),//interior
+                        'name'        => 'Toyota HiAce',
+                        'rate_per_km' => 650,
+                        'passengers'  => 'Up to 5 Passengers',
+                        'images'      => [
+                            asset('assets/image/minivan.png'),
+                            asset('assets/image/minivan.png'),
+                            asset('assets/image/minivan.png'),
                         ],
                         'features' => [
-                            'Standard minivan',
                             'Air conditioning',
                             'Professional driver',
-                            'Suitable for group travel',
-                            'Luggage storage available',
+                            'Group-friendly seating',
+                            'Luggage storage',
+                            'Ideal for airport groups',
                         ],
                     ],
                     [
-                        'name'       => 'Standard',
-                        'price'      => 55000,
-                        'passengers' => 'Up to 5',
-                        'images'     => [
-                            asset('assets/image/minivan.png'),//front
-                            asset('assets/image/minivan.png'),//rear
-                            asset('assets/image/minivan.png'),//interior
+                        'name'        => 'Mercedes Vito',
+                        'rate_per_km' => 800,
+                        'passengers'  => 'Up to 5 Passengers',
+                        'images'      => [
+                            asset('assets/image/minivan.png'),
+                            asset('assets/image/minivan.png'),
+                            asset('assets/image/minivan.png'),
                         ],
-
                         'features' => [
-                            'Mid-size passenger van',
-                            'Full air conditioning',
-                            'Professional uniformed driver',
-                            'Ideal for family & group outings',
-                            'Complimentary bottled water',
-                            'Generous luggage space',
-                        ],
-                    ],
-                    [
-                        'name'       => 'Executive',
-                        'price'      => 75000,
-                        'passengers' => 'Up to 5',
-                        'images'     => [
-                            asset('assets/image/minivan.png'),//front
-                            asset('assets/image/minivan.png'),//rear
-                            asset('assets/image/minivan.png'),//interior
-                        ],
-
-                        'features' => [
-                            'Premium people carrier',
                             'Full climate control',
                             'Smartly dressed chauffeur',
-                            'Reclining captain seats',
-                            'Complimentary refreshments',
+                            'Premium captain seats',
                             'USB charging ports',
-                            'Extra-wide luggage bay',
+                            'Complimentary refreshments',
+                            'Wi-Fi on request',
                         ],
                     ],
                 ],
             ],
 
             'bus' => [
-                'fuel_rate_per_km' => 100,
-                'hourly_rate'      => 15000,
-                'items' => [
+                'thumb'  => asset('assets/image/coaster.jpg'),
+                'models' => [
                     [
-                        'name'       => 'Regular',
-                        'price'      => 40000,
-                        'passengers' => 'Up to 12',
-                        'images'     => [
-                            asset('assets/image/coaster.jpg'),//front
-                            asset('assets/image/coaster.jpg'),//rear
-                            asset('assets/image/coaster.jpg'),//interior
+                        'name'        => 'Toyota Coaster',
+                        'rate_per_km' => 900,
+                        'passengers'  => 'Up to 12 Passengers',
+                        'images'      => [
+                            asset('assets/image/coaster.jpg'),
+                            asset('assets/image/coaster.jpg'),
+                            asset('assets/image/coaster.jpg'),
                         ],
                         'features' => [
-                            'Standard coaster bus',
                             'Air conditioning',
                             'Professional driver',
-                            'Ideal for large groups',
-                            'Luggage compartment',
-                        ],
-                    ],
-                    [
-                        'name'       => 'Standard',
-                        'price'      => 55000,
-                        'passengers' => 'Up to 12',
-                        'images'     => [
-                            asset('assets/image/coaster.jpg'),//front
-                            asset('assets/image/coaster.jpg'),//rear
-                            asset('assets/image/coaster.jpg'),//interior
-                        ],
-                        'features' => [
-                            'Mid-size coach bus',
-                            'Full air conditioning',
-                            'Professional uniformed driver',
                             'Reclining seats',
                             'Luggage racks',
-                            'Complimentary bottled water',
+                            'Ideal for large groups',
                         ],
                     ],
                     [
-                        'name'       => 'Executive',
-                        'price'      => 75000,
-                        'passengers' => 'Up to 12',
-                        'images'     => [
-                            asset('assets/image/coaster.jpg'),//front
-                            asset('assets/image/coaster.jpg'),//rear
-                            asset('assets/image/coaster.jpg'),//interior
+                        'name'        => 'Mercedes Sprinter',
+                        'rate_per_km' => 1000,
+                        'passengers'  => 'Up to 12 Passengers',
+                        'images'      => [
+                            asset('assets/image/coaster.jpg'),
+                            asset('assets/image/coaster.jpg'),
+                            asset('assets/image/coaster.jpg'),
                         ],
                         'features' => [
-                            'Premium coach bus',
                             'Full climate control',
                             'Smartly dressed chauffeur',
-                            'Reclining luxury seats',
-                            'Onboard entertainment system',
+                            'Luxury reclining seats',
+                            'Onboard entertainment',
                             'Complimentary refreshments',
-                            'Overhead luggage racks',
                             'USB charging at every seat',
                         ],
                     ],
@@ -264,180 +1093,210 @@ class CarController extends Controller
             ],
 
             'luxury' => [
-                'fuel_rate_per_km' => 90,
-                'hourly_rate'      => 20000,
-                'items' => [
+                'thumb'  => asset('assets/image/limo.avif'),
+                'models' => [
                     [
-                        'name'       => 'Regular',
-                        'price'      => 40000,
-                        'passengers' => '1 – 4',
-                        'images'     => [
-                            asset('assets/image/limo.avif'),//front
-                            asset('assets/image/limo.avif'),//rear
-                            asset('assets/image/limo.avif'),//interior
+                        'name'        => 'Mercedes S-Class',
+                        'rate_per_km' => 1200,
+                        'passengers'  => '1 – 4 Passengers',
+                        'images'      => [
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
                         ],
                         'features' => [
-                            'Entry-level luxury vehicle',
-                            'Air conditioning',
-                            'Professional chauffeur',
-                            'Suitable for special occasions',
-                            'Premium interior finish',
+                            'Dual-zone climate control',
+                            'White-glove chauffeur',
+                            'Premium leather & wood trim',
+                            'Complimentary refreshments',
+                            'Privacy partition',
+                            'Red carpet meet & greet',
                         ],
                     ],
                     [
-                        'name'       => 'Standard',
-                        'price'      => 55000,
-                        'passengers' => '1 – 4',
-                        'images'     => [
-                            asset('assets/image/limo.avif'),//front
-                            asset('assets/image/limo.avif'),//rear
-                            asset('assets/image/limo.avif'),//interior
+                        'name'        => 'BMW 7 Series',
+                        'rate_per_km' => 1200,
+                        'passengers'  => '1 – 4 Passengers',
+                        'images'      => [
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
                         ],
                         'features' => [
-                            'Mid-range luxury limousine',
                             'Full climate control',
                             'Smartly dressed chauffeur',
-                            'Leather interior',
-                            'Complimentary champagne on request',
-                            'Privacy partition',
+                            'Executive leather seats',
+                            'Ambient lighting',
+                            'Complimentary refreshments',
                             'Meet & greet service',
                         ],
                     ],
                     [
-                        'name'       => 'Executive',
-                        'price'      => 75000,
-                        'passengers' => '1 – 4',
-                        'images'     => [
-                            asset('assets/image/limo.avif'),//front
-                            asset('assets/image/limo.avif'),//rear
-                            asset('assets/image/limo.avif'),//interior
+                        'name'        => 'Lexus LS 500',
+                        'rate_per_km' => 1300,
+                        'passengers'  => '1 – 4 Passengers',
+                        'images'      => [
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
+                            asset('assets/image/limo.avif'),
                         ],
                         'features' => [
-                            'Top-tier stretch limousine',
                             'Dual-zone climate control',
-                            'White-glove chauffeur service',
-                            'Premium leather & wood trim',
-                            'Onboard bar & refreshments',
-                            'Entertainment system',
+                            'White-glove chauffeur',
+                            'Massage rear seats',
+                            'Onboard entertainment system',
+                            'Champagne on request',
                             'Privacy partition',
-                            'Red carpet meet & greet',
                             'Flower arrangement on request',
                         ],
                     ],
                 ],
             ],
+
         ];
 
-        /* TRANSFER VEHICLE CLASSES
-         */
-        $transferVehicles = [
-            [
-                'key'         => 'saloon',
-                'name'        => 'Saloon',
-                'passengers'  => '1 – 3',
-                'rate_per_km' => 350,
-                'thumb'       => asset('assets/image/saloon.jpg'),
-            ],
-            [
-                'key'         => 'suv',
-                'name'        => 'SUV',
-                'passengers'  => '1 – 3',
-                'rate_per_km' => 500,
-                'thumb'       => asset('assets/image/suv.jpg'),
-                
-            ],
-            [
-                'key'         => 'van',
-                'name'        => 'Mini Van',
-                'passengers'  => 'Up to 5',
-                'rate_per_km' => 650,
-                'thumb'       => asset('assets/image/minivan.png'),
-                
-            ],
-            [
-                'key'         => 'bus',
-                'name'        => 'Bus',
-                'passengers'  => 'Up to 12',
-                'rate_per_km' => 900,
-                'thumb'       => asset('assets/image/coaster.jpg'),
-                
-            ],
-            [
-                'key'         => 'luxury',
-                'name'        => 'Luxury',
-                'passengers'  => '1 – 4',
-                'rate_per_km' => 1200,
-                'thumb'       => asset('assets/image/limo.avif'),
-                
-            ],
-        ];
-
-        /*
-         Type thumbnails shown on the left sidebar (one per vehicle type).
-         These are the small thumb images for the type selector cards.
-        */
         $typeThumbs = [
-            'saloon'  => asset('assets/image/saloon.jpg'),
-            'suv'     => asset('assets/image/suv.jpg'),
-            'van'     => asset('assets/image/minivan.png'),
-            'bus'     => asset('assets/image/coaster.jpg'),
-            'luxury'  => asset('assets/image/limo.avif'),
+            'saloon' => asset('assets/image/saloon.jpg'),
+            'suv'    => asset('assets/image/suv.jpg'),
+            'van'    => asset('assets/image/minivan.png'),
+            'bus'    => asset('assets/image/coaster.jpg'),
+            'luxury' => asset('assets/image/limo.avif'),
         ];
 
         return view('carhire.index', compact('categories', 'transferVehicles', 'typeThumbs'));
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | PRIVATE DATA HELPERS  (server-side price verification only)
+    |--------------------------------------------------------------------------
+    */
+    private function categoriesData(): array
+    {
+        return [
+            'saloon'  => ['fuel_rate_per_km' => 1300, 'hourly_rate' => 5000,  'items' => [
+                ['name' => 'Regular',   'price' => 15000],
+                ['name' => 'Standard',  'price' => 20000],
+                ['name' => 'Executive', 'price' => 30000],
+            ]],
+            'suv'     => ['fuel_rate_per_km' => 1300, 'hourly_rate' => 8000,  'items' => [
+                ['name' => 'Regular',   'price' => 30000],
+                ['name' => 'Standard',  'price' => 40000],
+                ['name' => 'Executive', 'price' => 60000],
+            ]],
+            'van'     => ['fuel_rate_per_km' => 1300, 'hourly_rate' => 10000, 'items' => [
+                ['name' => 'Regular',   'price' => 40000],
+                ['name' => 'Standard',  'price' => 55000],
+                ['name' => 'Executive', 'price' => 75000],
+            ]],
+            'bus'     => ['fuel_rate_per_km' => 1300, 'hourly_rate' => 15000, 'items' => [
+                ['name' => 'Regular',   'price' => 40000],
+                ['name' => 'Standard',  'price' => 55000],
+                ['name' => 'Executive', 'price' => 75000],
+            ]],
+            'luxury'  => ['fuel_rate_per_km' => 1300, 'hourly_rate' => 20000, 'items' => [
+                ['name' => 'Regular',   'price' => 40000],
+                ['name' => 'Standard',  'price' => 55000],
+                ['name' => 'Executive', 'price' => 75000],
+            ]],
+        ];
+    }
+
+    private function transferVehiclesData(): array
+    {
+        return [
+            ['type' => 'saloon', 'name' => 'Toyota Camry',             'rate_per_km' => 350],
+            ['type' => 'saloon', 'name' => 'Honda Accord',             'rate_per_km' => 350],
+            ['type' => 'saloon', 'name' => 'Toyota Avalon',            'rate_per_km' => 400],
+            ['type' => 'suv',    'name' => 'Toyota Highlander',        'rate_per_km' => 500],
+            ['type' => 'suv',    'name' => 'Lexus RX 350',             'rate_per_km' => 600],
+            ['type' => 'suv',    'name' => 'Ford Explorer',            'rate_per_km' => 520],
+            ['type' => 'van',    'name' => 'Toyota HiAce',             'rate_per_km' => 650],
+            ['type' => 'van',    'name' => 'Mercedes Vito',            'rate_per_km' => 800],
+            ['type' => 'bus',    'name' => 'Toyota Coaster',           'rate_per_km' => 900],
+            ['type' => 'bus',    'name' => 'Mercedes Sprinter',        'rate_per_km' => 1000],
+            ['type' => 'luxury', 'name' => 'Mercedes S-Class',         'rate_per_km' => 1200],
+            ['type' => 'luxury', 'name' => 'BMW 7 Series',             'rate_per_km' => 1200],
+            ['type' => 'luxury', 'name' => 'Lexus LS 500',             'rate_per_km' => 1300],
+        ];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | GOOGLE MAPS DISTANCE PROXY
+    |--------------------------------------------------------------------------
+    */
     public function distance(Request $request)
     {
         $request->validate([
-            'origin'      => 'required|string',
-            'destination' => 'required|string',
+            'origin'      => 'required|string|max:500',
+            'destination' => 'required|string|max:500',
         ]);
 
         $apiKey = config('services.google.maps_key');
-
-        $response = Http::get('https://maps.googleapis.com/maps/api/distancematrix/json', [
-            'units'        => 'metric',
-            'origins'      => $request->origin,
-            'destinations' => $request->destination,
-            'key'          => $apiKey,
-        ]);
-
-        $data = $response->json();
-
-        if (($data['status'] ?? null) !== 'OK') {
-            return response()->json([
-                'error' => 'Google API error: ' . ($data['status'] ?? 'UNKNOWN') . ' — ' . ($data['error_message'] ?? 'No details')
-            ], 500);
+        if (!$apiKey) {
+            return response()->json(['error' => 'Maps API not configured.'], 500);
         }
 
-        $element = $data['rows'][0]['elements'][0] ?? null;
+        $origin = ($request->filled('origin_lat') && $request->filled('origin_lng'))
+            ? $request->origin_lat . ',' . $request->origin_lng
+            : $request->origin;
 
-        if (!$element || $element['status'] !== 'OK') {
+        $destination = ($request->filled('dest_lat') && $request->filled('dest_lng'))
+            ? $request->dest_lat . ',' . $request->dest_lng
+            : $request->destination;
+
+        try {
+            $response = Http::get('https://maps.googleapis.com/maps/api/distancematrix/json', [
+                'origins'      => $origin,
+                'destinations' => $destination,
+                'units'        => 'metric',
+                'region'       => 'NG',
+                'key'          => $apiKey,
+            ]);
+
+            $data = $response->json();
+
+            if (($data['status'] ?? '') !== 'OK') {
+                Log::warning('Google Maps Distance API error', ['status' => $data['status'] ?? 'unknown']);
+                return response()->json(['error' => 'Google API error: ' . ($data['status'] ?? 'UNKNOWN')], 500);
+            }
+
+            $element = $data['rows'][0]['elements'][0] ?? null;
+            if (!$element || ($element['status'] ?? '') !== 'OK') {
+                return response()->json(['error' => 'No route found. Status: ' . ($element['status'] ?? 'N/A')], 400);
+            }
+
+            $distanceKm  = max(1, (int) ceil($element['distance']['value'] / 1000));
+            $durationMins = (int) ceil($element['duration']['value'] / 60);
+            $driveTime   = $durationMins >= 60
+                ? floor($durationMins / 60) . 'h ' . ($durationMins % 60 > 0 ? ($durationMins % 60) . 'm' : '')
+                : $durationMins . ' mins';
+
             return response()->json([
-                'error' => 'No route found between those locations. Status: ' . ($element['status'] ?? 'N/A')
-            ], 400);
-        }
+                'distance_km'   => $distanceKm,
+                'distance_text' => $element['distance']['text'],
+                'duration_text' => $element['duration']['text'],
+                'drive_time'    => trim($driveTime),
+            ]);
 
-        return response()->json([
-            'distance_km'   => $element['distance']['value'] / 1000,
-            'distance_text' => $element['distance']['text'],
-            'drive_time'    => $element['duration']['text'],   // ✅ "54 mins" human-readable
-        ]);
+        } catch (\Exception $e) {
+            Log::error('Google Maps Distance Exception', ['error' => $e->getMessage()]);
+            return response()->json(['error' => 'Distance calculation failed. Please try again.'], 500);
+        }
     }
-    
+
     /*
     |==========================================================================
-    |  CAR HIRE — submit, callbacks, emails
-    |==========================================================================*/
-
-    
-
+    | CAR HIRE — submit, callbacks, success
+    |==========================================================================
+    */
     public function submitCarHire(Request $request)
     {
         $data = $request->validate([
             'car_type'         => 'required|string',
             'category'         => 'required|string',
+            'car_model'        => 'required|string|max:100',   // ← NEW
             'price'            => 'required|numeric|min:0',
             'distance_km'      => 'required|numeric|min:1',
             'rental_hours'     => 'required|numeric|min:1',
@@ -452,12 +1311,10 @@ class CarController extends Controller
             'payment_option'   => 'required|in:budpay,seerbit',
         ]);
 
-        // Server-side price verification — never trust the submitted price
-        $allCats   = $this->index()->getData()['categories'];
-        $typeData  = $allCats[$data['car_type']] ?? null;
-        $catItem   = collect($typeData['items'] ?? [])->firstWhere('name', $data['category']);
-        $basePrice = $catItem['price'] ?? 0;
-
+        $allCats       = $this->categoriesData();
+        $typeData      = $allCats[$data['car_type']] ?? null;
+        $catItem       = collect($typeData['items'] ?? [])->firstWhere('name', $data['category']);
+        $basePrice     = $catItem['price'] ?? 0;
         $verifiedPrice = $basePrice
             + ($data['distance_km'] * ($typeData['fuel_rate_per_km'] ?? 0))
             + ($data['rental_hours'] * ($typeData['hourly_rate'] ?? 0));
@@ -467,6 +1324,7 @@ class CarController extends Controller
         CarHire::create([
             'car_type'          => $data['car_type'],
             'category'          => $data['category'],
+            'car_model'         => $data['car_model'],          // ← NEW
             'full_name'         => $data['full_name'],
             'email'             => $data['email'],
             'phone_number'      => $data['phone_number'],
@@ -490,7 +1348,7 @@ class CarController extends Controller
             phone:          $data['phone_number'],
             customerName:   $data['full_name'],
             reference:      $reference,
-            product_title:  'Car Hire — ' . ucfirst($data['car_type']) . ' (' . $data['category'] . ')',
+            product_title:  'Car Hire — ' . ucfirst($data['car_type']) . ' · ' . $data['category'] . ' · ' . $data['car_model'],
             callback_route: 'carhire.budpay.callback',
             cancel_route:   'carhire.index',
             seerbit_route:  'carhire.seerbit.callback',
@@ -525,13 +1383,11 @@ class CarController extends Controller
             ->with('success', session('success', 'Your Car Hire booking was confirmed!'));
     }
 
-
     /*
     |==========================================================================
-    |  TRANSFER — submit, callbacks, emails
+    | TRANSFER — submit, callbacks, success
     |==========================================================================
     */
-
     public function submitTransfer(Request $request)
     {
         $data = $request->validate([
@@ -552,11 +1408,11 @@ class CarController extends Controller
             'payment_option'    => 'required|in:budpay,seerbit',
         ]);
 
-        // Server-side price verification — find the vehicle rate from our data
-        $allVehicles  = $this->index()->getData()['transferVehicles'];
-        $vehicleData  = collect($allVehicles)->firstWhere('key', $data['vehicle_type']);
-        $verifiedPrice = $vehicleData
-            ? (int) round($data['distance_km'] * $vehicleData['rate_per_km'])
+        $allModels     = $this->transferVehiclesData();
+        $modelData     = collect($allModels)->firstWhere('name', $data['vehicle_name']);
+        $ratePerKm     = $modelData['rate_per_km'] ?? 0;
+        $verifiedPrice = $ratePerKm > 0
+            ? (int) round($data['distance_km'] * $ratePerKm)
             : (int) $data['price'];
 
         $reference = 'TRANSFER-' . strtoupper(bin2hex(random_bytes(5)));
@@ -625,10 +1481,9 @@ class CarController extends Controller
 
     /*
     |==========================================================================
-    |  PAYMENT LAUNCHER
+    | SHARED PAYMENT LAUNCHER
     |==========================================================================
     */
-
     private function launchPayment(
         string $payment_option,
         float  $amount,
@@ -643,17 +1498,16 @@ class CarController extends Controller
     ) {
         if ($payment_option === 'seerbit') {
             return $this->launchSeerbitPayment(
-                amount:         $amount,
-                email:          $email,
-                phone:          $phone,
-                customerName:   $customerName,
-                reference:      $reference,
-                product_title:  $product_title,
-                seerbit_route:  $seerbit_route,
+                amount:        $amount,
+                email:         $email,
+                phone:         $phone,
+                customerName:  $customerName,
+                reference:     $reference,
+                product_title: $product_title,
+                seerbit_route: $seerbit_route,
             );
         }
 
-        // ── BudPay ──
         $publicKey   = env('BUDPAY_PUBLIC_KEY');
         $callbackUrl = route($callback_route);
         $cancelUrl   = route($cancel_route);
@@ -766,10 +1620,9 @@ class CarController extends Controller
 
     /*
     |==========================================================================
-    | CALLBACK HANDLERS
+    | SHARED CALLBACK HANDLERS
     |==========================================================================
     */
-
     private function handleBudpayCallback(
         Request $request,
         string  $model,
@@ -780,7 +1633,6 @@ class CarController extends Controller
         $reference = $request->query('reference');
 
         if (!$reference) {
-            Log::warning($product_type . ' BudPay Callback: Missing reference.', ['url' => $request->fullUrl()]);
             return redirect()->route($fail_route)->with('error', 'Missing payment reference. Please contact support.');
         }
 
@@ -789,18 +1641,12 @@ class CarController extends Controller
                 ->get("https://api.budpay.com/api/v2/transaction/verify/{$reference}");
 
             if ($verify->failed()) {
-                Log::error($product_type . ' BudPay Verify Failed', [
-                    'reference' => $reference,
-                    'status'    => $verify->status(),
-                    'body'      => $verify->body(),
-                ]);
+                Log::error($product_type . ' BudPay Verify Failed', ['reference' => $reference]);
                 return redirect()->route($fail_route)->with('error', 'Payment gateway error. Please contact support.');
             }
 
             $data      = $verify->json();
             $txnStatus = $data['data']['transaction_status'] ?? $data['data']['status'] ?? null;
-
-            Log::info($product_type . ' BudPay Verify Response', ['reference' => $reference, 'status' => $txnStatus]);
 
             if (!in_array($txnStatus, ['success', 'completed'])) {
                 return redirect()->route($fail_route)
@@ -810,16 +1656,12 @@ class CarController extends Controller
             $record = $model::where('payment_reference', $reference)->first();
 
             if (!$record) {
-                Log::error($product_type . ' BudPay: No record found.', ['reference' => $reference]);
                 return redirect()->route($fail_route)->with('error', 'Payment received but booking not found. Please contact support.');
             }
 
             if ($record->payment_status !== 'paid') {
                 $record->update(['payment_status' => 'paid']);
                 $this->sendMails($record, $product_type);
-                Log::info($product_type . ' marked paid (BudPay).', ['reference' => $reference]);
-            } else {
-                Log::warning($product_type . ' BudPay: Duplicate callback.', ['reference' => $reference]);
             }
 
             $successMessage = $product_type === 'car_hire'
@@ -829,12 +1671,7 @@ class CarController extends Controller
             return redirect()->route($success_route)->with('success', $successMessage);
 
         } catch (\Exception $e) {
-            Log::error($product_type . ' BudPay Callback Exception', [
-                'reference' => $reference,
-                'error'     => $e->getMessage(),
-                'file'      => $e->getFile(),
-                'line'      => $e->getLine(),
-            ]);
+            Log::error($product_type . ' BudPay Callback Exception', ['reference' => $reference, 'error' => $e->getMessage()]);
             return redirect()->route($fail_route)->with('error', 'Error verifying payment. Please contact support.');
         }
     }
@@ -849,26 +1686,19 @@ class CarController extends Controller
         $reference = $request->query('reference');
         $message   = $request->query('message');
 
-        Log::info($product_type . ' SeerBit Callback', ['reference' => $reference, 'message' => $message]);
-
         if (strtolower($message) !== 'successful') {
-            Log::error($product_type . ' SeerBit: Payment not successful.', ['reference' => $reference, 'message' => $message]);
             return redirect()->route($fail_route)->with('error', 'Payment failed or was cancelled. Please try again.');
         }
 
         $record = $model::where('payment_reference', $reference)->first();
 
         if (!$record) {
-            Log::error($product_type . ' SeerBit: No record found.', ['reference' => $reference]);
             return redirect()->route($fail_route)->with('error', 'Payment received but booking not found. Please contact support.');
         }
 
         if ($record->payment_status !== 'paid') {
             $record->update(['payment_status' => 'paid']);
             $this->sendMails($record, $product_type);
-            Log::info($product_type . ' marked paid (SeerBit).', ['reference' => $reference]);
-        } else {
-            Log::warning($product_type . ' SeerBit: Duplicate callback.', ['reference' => $reference]);
         }
 
         $successMessage = $product_type === 'car_hire'
@@ -878,36 +1708,30 @@ class CarController extends Controller
         return redirect()->route($success_route)->with('success', $successMessage);
     }
 
+    /*
+    |==========================================================================
+    | MAIL SENDER
+    |==========================================================================
+    */
     private function sendMails($record, string $product_type): void
     {
         $supportMail = 'damilola@travelwheel.ng';
 
         try {
             switch ($product_type) {
-
                 case 'car_hire':
-                    Mail::to($record->email)
-                        ->send(new \App\Mail\CarHireSuccessMail($record));
-
-                    Mail::to($supportMail)
-                        ->send(new \App\Mail\CarHireNotificationMail($record));
+                    Mail::to($record->email)->send(new \App\Mail\CarHireSuccessMail($record));
+                    Mail::to($supportMail)->send(new \App\Mail\CarHireNotificationMail($record));
                     break;
-
                 case 'transfer':
-                    Mail::to($record->email)
-                        ->send(new \App\Mail\TransferSuccessMail($record));
-
-                    Mail::to($supportMail)
-                        ->send(new \App\Mail\TransferNotificationMail($record));
+                    Mail::to($record->email)->send(new \App\Mail\TransferSuccessMail($record));
+                    Mail::to($supportMail)->send(new \App\Mail\TransferNotificationMail($record));
                     break;
-
                 default:
                     Log::warning('sendMails: unknown product_type', ['product_type' => $product_type]);
                     break;
             }
-
         } catch (\Exception $e) {
-            // Log mail failure but never crash the callback — payment is already confirmed
             Log::error('Mail Error for ' . $product_type, [
                 'reference' => $record->payment_reference ?? 'unknown',
                 'error'     => $e->getMessage(),

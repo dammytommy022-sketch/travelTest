@@ -67,6 +67,10 @@
                 <span class="detail-value">{{ $car_type }}</span>
             </div>
             <div class="detail-row">
+                <span class="detail-label">Vehicle Model</span>
+                <span class="detail-value">{{ $car_model }}</span>
+            </div>
+            <div class="detail-row">
                 <span class="detail-label">Category</span>
                 <span class="detail-value">{{ $category }}</span>
             </div>

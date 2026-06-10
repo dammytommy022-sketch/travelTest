@@ -41,6 +41,7 @@ class CarHireNotificationMail extends Mailable
                         'email'            => $this->booking->email,
                         'phone'            => $this->booking->phone_number,
                         'car_type'         => $carTypeDisplay,
+                        'car_model'        => $this->booking->car_model,
                         'category'         => $this->booking->category,
                         'pickup_location'  => $this->booking->pickup_location,
                         'dropoff_location' => $this->booking->dropoff_location,
