@@ -6,4 +6,5 @@ return [
     'token' => env('SEERBIT_TOKEN'),
     'logger_path' => env('SEERBIT_LOGGER_PATH',public_path()),
     'logger' => env('SEERBIT_LOGGER'),
+    'environment' => env('SEERBIT_ENV', 'test'),
 ];

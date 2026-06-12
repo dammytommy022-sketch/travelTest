@@ -1596,7 +1596,7 @@ class CarController extends Controller
         try {
             $callbackUrl = route($seerbit_route);
             $payload = [
-                'amount'             => $amount,
+                'amount' => (int) $amount,
                 'callbackUrl'        => $callbackUrl,
                 'country'            => 'NG',
                 'currency'           => 'NGN',
@@ -1606,6 +1606,7 @@ class CarController extends Controller
                 'productDescription' => $product_title,
                 'productId'          => 'PRD' . $reference,
             ];
+            
             $response = SeerBit::Standard()->Initialize($payload);
             if (isset($response['data']['payments']['redirectLink']) && !empty($response['data']['payments']['redirectLink'])) {
                 return redirect($response['data']['payments']['redirectLink']);
