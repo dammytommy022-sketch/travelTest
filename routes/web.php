@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VisaController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\CarController;
-use App\Http\Controllers\TransferController;
+use App\Http\Controllers\AdminController;
 Route::get('/', function () {return view('index');})->name('index');
 
 Route::get('/pssc', function () {
@@ -185,6 +185,38 @@ Route::prefix('transfer')->name('transfer.')->group(function () {
     Route::get('/callback/seerbit',[CarController::class, 'seerbitCallbackTransfer']) ->name('seerbit.callback');
     Route::get('/success',         [CarController::class, 'successTransfer'])         ->name('success');
 });
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Login
+    Route::get( 'login',        [AdminController::class, 'loginPage']   )->name('login');
+    Route::post('login',        [AdminController::class, 'loginSubmit'] )->name('login.submit');
+    Route::get( 'logout',       [AdminController::class, 'logout']      )->name('logout');
+
+    // Dashboard
+    Route::get( '/ctdashboard',            [AdminController::class, 'dashboard']   )->name('ctdashboard');
+
+    // Booking detail (JSON)
+    Route::get( 'detail',       [AdminController::class, 'detail']      )->name('detail');
+
+    // Update booking status (JSON)
+    Route::post('status',       [AdminController::class, 'updateStatus'])->name('status');
+
+    // Assign driver (JSON)
+    Route::post('assign-driver',[AdminController::class, 'assignDriver'])->name('assign.driver');
+
+    // Send driver email (JSON)
+    Route::post('send-email',   [AdminController::class, 'sendDriverEmail'])->name('send.email');
+});
+Route::post('/admin/rates/update',      [AdminController::class, 'updateRates'])->name('admin.rates.update');
+ 
+// Fleet cars
+Route::post('/admin/fleet/store',       [AdminController::class, 'storeCar'])->name('admin.fleet.store');
+Route::post('/admin/fleet/delete',      [AdminController::class, 'deleteCar'])->name('admin.fleet.delete');
+Route::post('/admin/fleet/toggle',      [AdminController::class, 'toggleCar'])->name('admin.fleet.toggle');
+ 
+// Fleet for booking (used in assign modal to auto-populate car model dropdown)
+Route::get('/admin/fleet/for-booking',  [AdminController::class, 'fleetForBooking'])->name('admin.fleet.for.booking');
 
 
 //admin

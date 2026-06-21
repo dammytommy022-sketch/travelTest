@@ -207,6 +207,23 @@
         .tr-arrow { display: flex; align-items: center; justify-content: center; padding-bottom: 2px; }
         .tr-arrow svg { width: 18px; height: 18px; fill: #0d1883; opacity: .4; }
 
+        /* ── Fare Rules (compact row + modal trigger, GetTransfer-style) ── */
+        .fare-rules-row { display: flex; flex-direction: column; gap: 7px; margin: 4px 0 14px; padding-top: 2px; }
+        .fr-free-cancel { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: #1a7a4e; }
+        .fr-free-cancel svg { width: 13px; height: 13px; fill: #1a7a4e; flex-shrink: 0; }
+        .fare-rules-link { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; padding: 0; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 600; color: #6b86c9; transition: color .2s; width: fit-content; }
+        .fare-rules-link:hover { color: #0d1883; text-decoration: underline; }
+        .fare-rules-link svg { width: 14px; height: 14px; fill: #6b86c9; flex-shrink: 0; transition: fill .2s; }
+        .fare-rules-link:hover svg { fill: #0d1883; }
+
+        /* ── Fare Rules modal content (reused inside the shared overlay) ── */
+        .fr-section { margin-bottom: 14px; }
+        .fr-section:last-child { margin-bottom: 0; }
+        .fr-section h6 { font-size: 11.5px; font-weight: 700; color: #0d1883; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .04em; }
+        .fr-section ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+        .fr-section li { display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; color: #444; line-height: 1.55; }
+        .fr-section li::before { content: '•'; color: #0d1883; flex-shrink: 0; line-height: 1.55; }
+
         /* ── Modal — entire overlay is built inline by openModal() in JS ── */
         @keyframes modalIn { from { opacity: 0; transform: translateY(20px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -306,11 +323,11 @@
         <div class="tab-bar">
             <button class="tab-btn active" id="tab-ch" onclick="switchTab('ch')">
                 <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/></svg>
-                Car Hire
+                Car Rental
             </button>
             <button class="tab-btn" id="tab-tr" onclick="switchTab('tr')">
                 <svg viewBox="0 0 24 24"><path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/></svg>
-                Transfer
+                Pick up 'n' Drop off
             </button>
         </div>
 
@@ -416,6 +433,19 @@
                                 <div class="form-group"><label>Pick-up Date</label><input type="date" id="ch_date"></div>
                                 <div class="form-group"><label>Pick-up Time</label><select id="ch_time"></select></div>
                             </div>
+
+                            {{-- ══ FARE RULES ══ --}}
+                            <div class="fare-rules-row">
+                                <div class="fr-free-cancel">
+                                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Free cancellation 5h before the trip
+                                </div>
+                                <button type="button" class="fare-rules-link" onclick="openFareRulesModal()">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15h-1.5v-6H12v6zm0-7.75c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zM12.75 17H11v-1h.75v-4.25H11v-1h1.75V17z"/></svg>
+                                    Fare Rules
+                                </button>
+                            </div>
+
                             <span class="pay-title">Payment Method</span>
                             <div class="pay-opts">
                                 <label class="pay-opt active" id="ch_p_budpay" onclick="ch_pay('budpay')">
@@ -526,6 +556,19 @@
                             <div class="form-group"><label>Arrival / Pick-up Date</label><input type="date" id="tr_date"></div>
                             <div class="form-group"><label>Arrival / Pick-up Time</label><select id="tr_time"></select></div>
                         </div>
+
+                        {{-- ══ FARE RULES ══ --}}
+                        <div class="fare-rules-row">
+                            <div class="fr-free-cancel">
+                                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                Free cancellation 5h before the trip
+                            </div>
+                            <button type="button" class="fare-rules-link" onclick="openFareRulesModal()">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15h-1.5v-6H12v6zm0-7.75c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zM12.75 17H11v-1h.75v-4.25H11v-1h1.75V17z"/></svg>
+                                Fare Rules
+                            </button>
+                        </div>
+
                         <span class="pay-title">Payment Method</span>
                         <div class="pay-opts">
                             <label class="pay-opt active" id="tr_p_budpay" onclick="tr_pay('budpay')">
@@ -603,6 +646,69 @@ const SVG_FB = `<svg viewBox="0 0 60 38" fill="none"><rect x="3" y="10" width="5
 let chSelType=null, chSelCat=null, chSelModel=null, chDistKm=0, chFinalPrice=0, chPayment='budpay';
 let trSelType=null, trSelModel=null, trDistKm=0, trFinalPrice=0, trPayment='budpay';
 let activeModal=null;
+
+/* ══ FARE RULES MODAL ══ */
+const FARE_RULES_HTML = `
+    <div class="fr-section">
+        <h6>Cancellation</h6>
+        <ul>
+            <li>Cancellation is free of charge up to 5 hours prior to the trip. The money will be refunded in full to the card, bank account or credit limit according to the terms of the agreement.</li>
+            <li>If you cancel a paid order less than 5 hours before the start of the trip, we will not be able to refund the money.</li>
+            <li>If an order canceled less than 5 hours before the start of the trip has not been paid, you will have to pay a penalty of 100% of the order value.</li>
+        </ul>
+    </div>
+    <div class="fr-section">
+        <h6>Changing the Order</h6>
+        <ul>
+            <li>We do not charge a fee for the very fact of making changes, but if you change your route, car class or make other significant changes, this may result in a change in price.</li>
+        </ul>
+    </div>
+    <div class="fr-section">
+        <h6>What is Included in the Transfer Price</h6>
+        <ul>
+            <li>The price includes: a trip from point A to point B, transport fees, tips, meeting the passenger with the sign, escorting with baggage from the meeting point to the car.</li>
+            <li>Possible car options: Toyota Hiace, Opel Vivaro, Hyundai H1 or similar.</li>
+            <li>Free waiting time is 90 minutes. Additional waiting time is charged separately.</li>
+        </ul>
+    </div>
+    <div class="fr-section">
+        <h6>Baggage Allowance</h6>
+        <ul>
+            <li>Baggage count is calculated based on the standard size of one piece of baggage: 55x45x25 cm (22x18x10 inches).</li>
+            <li>Please contact Customer Support if the passenger is going to have oversize baggage. We will reach the service provider in order to pick the appropriate car.</li>
+        </ul>
+    </div>`;
+
+function openFareRulesModal() {
+    const old = document.getElementById('_gtOverlay');
+    if (old) old.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = '_gtOverlay';
+    overlay.style.cssText = [
+        'position:fixed','top:0','left:0','width:100%','height:100%',
+        'background:rgba(10,12,40,0.72)',
+        'z-index:2147483647',
+        'display:flex','align-items:center','justify-content:center',
+        'padding:20px','box-sizing:border-box',
+        'font-family:DM Sans,sans-serif'
+    ].join(';');
+    overlay.onclick = function(e){ if(e.target===overlay) closeModal(); };
+
+    overlay.innerHTML = `
+    <div style="background:#fff;border-radius:20px;width:100%;max-width:480px;max-height:85vh;overflow-y:auto;
+                box-shadow:0 24px 60px rgba(13,24,131,.3);animation:gtModalIn .22s ease both;position:relative;">
+        <style>@keyframes gtModalIn{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}</style>
+        <div style="background:linear-gradient(135deg,#0d1883,#2d39b6);padding:20px 22px 16px;border-radius:20px 20px 0 0;position:relative;">
+            <button onclick="closeModal()" style="position:absolute;top:13px;right:14px;width:28px;height:28px;background:rgba(255,255,255,.18);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;line-height:1;">✕</button>
+            <h2 style="font-family:'Playfair Display',serif;font-size:18px;color:#fff;margin:0;">Fare Rules</h2>
+        </div>
+        <div style="padding:18px 22px 22px;">${FARE_RULES_HTML}</div>
+    </div>`;
+
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+}
 
 /* ══ STATE SELECTOR ══ */
 function onStateChange(val) {
