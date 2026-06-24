@@ -54,8 +54,8 @@
         .tab-panel.active { display:block; }
 
         /* ── Table ── */
-        .table-wrap { background:#fff; border-radius:14px; border:1px solid #e4e6f0; overflow:hidden; }
-        table { width:100%; border-collapse:collapse; }
+        .table-wrap { background:#fff; border-radius:14px; border:1px solid #e4e6f0; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+        table { width:100%; min-width:760px; border-collapse:collapse; }
         thead { background:#f7f8ff; }
         thead th { padding:11px 14px; font-size:10.5px; font-weight:700; color:#666; text-transform:uppercase; letter-spacing:.06em; text-align:left; border-bottom:1px solid #e4e6f0; white-space:nowrap; }
         tbody tr { border-bottom:1px solid #f0f2f8; transition:background .15s; }
@@ -198,6 +198,84 @@
         .admin-section-head { padding:16px 20px; border-bottom:1px solid #e4e6f0; display:flex; align-items:center; justify-content:space-between; }
         .admin-section-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:600; color:#0d1883; }
         .admin-section-body { padding:18px 20px; }
+        /* ══════════════════════════════════════════
+             MOBILE RESPONSIVE — phones & small tablets
+        ══════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .page { padding: 16px 12px 60px; }
+
+            .topbar { padding: 0 14px; flex-wrap: wrap; height: auto; min-height: 56px; row-gap: 6px; padding-top: 8px; padding-bottom: 8px; }
+            .topbar-left { flex-wrap: wrap; }
+            .admin-name { display: none; }
+
+            .admin-section-head { flex-direction: column; align-items: stretch; gap: 10px; }
+            .admin-section-head .admin-section-title { font-size: 14px; }
+            .admin-section-body { padding: 14px 14px; }
+
+            /* Rate management sub-tabs wrap instead of overflowing */
+            .admin-section-body > div[style*="display:flex"][style*="gap:4px"] { flex-wrap: wrap; }
+
+            .filter-bar { flex-direction: column; align-items: stretch; }
+            .filter-bar input[type="text"] { min-width: 0; }
+            .filter-bar select,
+            .filter-bar .btn-search,
+            .filter-bar .btn-clear { width: 100%; text-align: center; }
+
+            .tab-bar { width: 100%; overflow-x: auto; }
+
+            /* ── Tables: horizontal scroll instead of clipped/hidden columns ── */
+            .table-wrap { position: relative; }
+            .table-wrap::after {
+                content: '⇠ scroll for more ⇢';
+                display: block;
+                text-align: center;
+                font-size: 10.5px;
+                color: #aaa;
+                padding: 6px 0 8px;
+                background: #fafbff;
+                border-top: 1px solid #f0f2f8;
+            }
+            thead th, tbody td { padding: 9px 10px; }
+
+            .pagination-wrap { flex-direction: column; gap: 8px; align-items: flex-start; }
+
+            /* ── Modals: full-bleed on phones, no awkward side gaps ── */
+            .modal-overlay { padding: 0; align-items: flex-end; }
+            .modal-box,
+            .modal-box.wide,
+            .modal-box.xwide {
+                max-width: 100%;
+                width: 100%;
+                max-height: 92vh;
+                border-radius: 18px 18px 0 0;
+            }
+            .modal-head { padding: 16px 16px; }
+            .modal-head h3 { font-size: 15.5px; }
+            .modal-body { padding: 16px; }
+            .modal-foot { padding: 12px 16px 16px; flex-wrap: wrap; }
+            .modal-foot button { min-width: 100%; }
+            .modal-foot button + button { margin-top: 0; }
+
+            /* ── Forms: always single column on phones ── */
+            .mform-row { grid-template-columns: 1fr; gap: 10px; }
+
+            /* ── Fleet cards: single column for readability ── */
+            .fleet-grid { grid-template-columns: 1fr; }
+
+            /* ── Driver search dropdown: keep it usable, not clipped ── */
+            #asgn_driver_dropdown div { max-height: 50vh; }
+
+            /* ── Stats row already adapts via existing rules above ── */
+        }
+
+        @media (max-width: 480px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .stat-value { font-size: 18px; }
+            table { min-width: 640px; }
+            .actions-cell { flex-direction: column; }
+            .actions-cell .btn-action { width: 100%; text-align: center; }
+        }
+
     </style>
 </head>
 <body>
