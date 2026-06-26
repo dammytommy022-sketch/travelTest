@@ -1,6 +1,4 @@
-@extends('layouts.header')
-@section('content')
-<section class=" m-5 d-flex justify-content-center align-items-center vh-10"> 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -137,5 +135,4 @@
         <p class="footer-note">© {{ date('Y') }} TravelWheel · Secure admin access</p>
     </div>
 </body>
-</section>             
-@endsection
+
